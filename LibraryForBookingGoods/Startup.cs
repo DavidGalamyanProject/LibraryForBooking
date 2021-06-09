@@ -4,8 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using ShopWebApi.Infrastructure.Extensions;
 
-namespace LibraryForBookingGoods
+namespace ShopWebApi
 {
     public class Startup
     {
@@ -21,10 +22,10 @@ namespace LibraryForBookingGoods
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "LibraryForBookingGoods", Version = "v1" });
-            });
+            services.ConfigureDbContext(Configuration);
+            services.ConfigureBackendSwagger();
+            services.ConfigureDomainManagers();
+            services.ConfigureRepositories();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
