@@ -8,4 +8,16 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Data\EntityFramework\Configurations\" />
+    <Folder Include="Data\Implementation\" />
+    <Folder Include="Data\Interfaces\" />
+    <Folder Include="Domain\Implementation\" />
+    <Folder Include="Domain\Interfaces\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Model\Dto\" />
+  </ItemGroup>
+
 </Project>
