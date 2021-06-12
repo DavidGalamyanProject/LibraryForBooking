@@ -10,9 +10,9 @@ namespace ShopWebApi.Domain.Implementation
     public class ProductReservationManager : IProductReservationManager
     {
         private readonly IProductReservationRepository _reservRepository;
-        private readonly IStorageWarehouseRepository _warehouse;
+        private readonly IProductInWarehouseRepository _warehouse;
 
-        public ProductReservationManager(IProductReservationRepository reservRepository, IStorageWarehouseRepository warehouse)
+        public ProductReservationManager(IProductReservationRepository reservRepository, IProductInWarehouseRepository warehouse)
         {
             _reservRepository = reservRepository;
             _warehouse = warehouse;

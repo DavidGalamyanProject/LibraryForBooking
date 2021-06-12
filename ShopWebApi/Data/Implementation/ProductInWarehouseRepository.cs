@@ -3,18 +3,26 @@ using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Model;
 using ShopWebApi.Model.Dto;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShopWebApi.Data.Implementation
 {
-    public class StorageWarehouseRepository : IStorageWarehouseRepository
+    public class ProductInWarehouseRepository : IProductInWarehouseRepository
     {
         private readonly ShopDbContext _dbContext;
 
-        public StorageWarehouseRepository(ShopDbContext dbContext)
+        public ProductInWarehouseRepository(ShopDbContext dbContext)
         {
             _dbContext = dbContext;
         }
+
+        public async Task<Dictionary<string, int>> GetListProduct()
+        {
+            var result = await _dbContext.StorageWarehouse.ToDictionaryAsync(x => x.ProductName, x => x.Quantity);
+            return result;
+        }
+
         public Task<ProductInWarehouse> GetProduct(ProductReservRequest request)
         {
             var result = _dbContext.StorageWarehouse.FirstOrDefaultAsync(x =>

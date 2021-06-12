@@ -1,5 +1,4 @@
-﻿using ShopWebApi.Model;
-using ShopWebApi.Model.Dto;
+﻿using ShopWebApi.Model.Dto;
 using System;
 using System.Threading.Tasks;
 

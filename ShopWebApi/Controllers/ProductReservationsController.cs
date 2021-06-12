@@ -27,5 +27,11 @@ namespace ShopWebApi.Controllers
             }
             return Ok(resultReserv);
         }
+        [HttpPost("ReserveRegistration")]
+        public async Task<IActionResult> ReserveRegistration([FromBody] ProductReservRequest request)
+        {
+            var timeNow = DateTime.UtcNow;
+            return Ok();
+        }
     }
 }

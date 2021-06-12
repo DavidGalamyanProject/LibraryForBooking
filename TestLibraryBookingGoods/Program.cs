@@ -10,7 +10,6 @@ namespace TestLibraryBookingGoods
         private const int _numberOfRequests = 300;
         static async Task Main(string[] args)
         {
-            
             var myThread = new Thread(new ThreadStart(Foo)); //Создаем новый объект потока (Thread)
             myThread.Start(); //запускаем поток
             var myThread2 = new Thread(new ThreadStart(Foo)); //Создаем новый объект потока (Thread)
@@ -25,7 +24,6 @@ namespace TestLibraryBookingGoods
             {
                 var result = await shop.ReservProduct("lemon", 1);
                 Console.WriteLine(result);
-
             }            
 
             static async void Foo()
