@@ -2,6 +2,7 @@
 using ShopWebApi.Domain.Interfaces;
 using ShopWebApi.Model.Dto;
 using System;
+using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
 namespace ShopWebApi.Controllers
@@ -10,27 +11,31 @@ namespace ShopWebApi.Controllers
     [ApiController]
     public class ProductReservationsController : ControllerBase
     {
-        private readonly IProductReservationManager _productManager;
+        private readonly IReservationManager _productManager;
+        private readonly IWarehouseManager _warehouseManager;
 
-        public ProductReservationsController(IProductReservationManager productManager)
+        public ProductReservationsController(IReservationManager productManager, IWarehouseManager warehouseManager)
         {
             _productManager = productManager;
+            _warehouseManager = warehouseManager;
         }
         [HttpPost]
-        public async Task<IActionResult> ReservProduct([FromBody] ProductReservRequest request)
+        public IActionResult ReservProduct([FromBody] ProductReservRequest request)
         {
-            var timeNow = DateTime.UtcNow;
-            var resultReserv = await _productManager.MakeAReservationProduct(request, timeNow);
+            var resultReserv = _productManager.AddRequestToQueue(request);
+
             if(resultReserv == null)
             {
                 return BadRequest();
             }
+
             return Ok(resultReserv);
         }
-        [HttpPost("ReserveRegistration")]
-        public async Task<IActionResult> ReserveRegistration([FromBody] ProductReservRequest request)
+        [HttpPut]
+        public async Task<IActionResult> Upload()
         {
-            var timeNow = DateTime.UtcNow;
+            _productManager.UploadReservList();
+            await _warehouseManager.UploadProductList();
             return Ok();
         }
     }

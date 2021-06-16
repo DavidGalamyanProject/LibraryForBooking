@@ -2,21 +2,16 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Quartz;
-using Quartz.Impl;
-using Quartz.Spi;
 using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Implementation;
 using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Domain.Implementation;
 using ShopWebApi.Domain.Interfaces;
-using ShopWebApi.Jobs;
-using ShopWebApi.Model;
 
 namespace ShopWebApi.Infrastructure.Extensions
 {
     internal static class ServiceCollectionExtensions
-    {
+    { 
         public static void ConfigureDbContext(this IServiceCollection services,
             IConfiguration configuration)
         {
@@ -36,21 +31,16 @@ namespace ShopWebApi.Infrastructure.Extensions
         }
         public static void ConfigureDomainManagers(this IServiceCollection services)
         {
-            services.AddScoped<IProductInWarehouseRepository, ProductInWarehouseRepository>();
-            services.AddScoped<IProductReservationRepository, ProductReservationRepository>();
+            services.AddScoped<IReservationManager, ReservationManager>();
+            services.AddScoped<IWarehouseManager, WarehouseManager>();
         }
         public static void ConfigureRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IProductReservationManager, ProductReservationManager>();
+            services.AddScoped<IWarehouseRepository, WarehouseRepository>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
         }
-        public static void ConfigureJobs(this IServiceCollection services)
+        public static void ConfigureJobs(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IJobFactory, JobFactory>();
-            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
-            services.AddSingleton(new JobSchedule(
-                                  jobType: typeof(ReservProductJob),
-                                  cronExpression: "0/5 * * * * ?"));
-            services.AddHostedService<QuartzHostedService>();
         }
     }
 }

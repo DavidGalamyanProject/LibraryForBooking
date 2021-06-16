@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace ShopWebApi.Model
+namespace ShopWebApi.Model.Entity
 {
-    /// <summary> </summary>
-    public class ReservedProducts
+    /// <summary> Сущность базы данных, для таблицы Warehouse </summary>
+    public class ReservedProduct
     {
         public Guid IdOrder { get; set; }
         public string ProductName { get; set; }

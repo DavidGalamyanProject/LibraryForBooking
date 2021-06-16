@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShopWebApi.Model;
+using ShopWebApi.Model.Entity;
 
 namespace ShopWebApi.Data.EntityFramework.Configurations
 {
-    public class StorageWarehouseConfiguration : IEntityTypeConfiguration<ProductInWarehouse>
+    public class WarehouseConfiguration : IEntityTypeConfiguration<WarehouseProduct>
     {
-        public void Configure(EntityTypeBuilder<ProductInWarehouse> builder)
+        public void Configure(EntityTypeBuilder<WarehouseProduct> builder)
         {
-            builder.ToTable("storage_warehouse");
+            builder.ToTable("warehouse");
 
             builder.HasKey(key => key.Article);
 

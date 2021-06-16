@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ShopWebApi.Migrations
 {
-    public partial class FirstMigrations : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "reserved_orders",
+                name: "reserved_products",
                 columns: table => new
                 {
                     id_order = table.Column<Guid>(type: "uuid", nullable: false),
@@ -18,11 +18,11 @@ namespace ShopWebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_reserved_orders", x => x.id_order);
+                    table.PrimaryKey("PK_reserved_products", x => x.id_order);
                 });
 
             migrationBuilder.CreateTable(
-                name: "storage_warehouse",
+                name: "warehouse",
                 columns: table => new
                 {
                     article = table.Column<Guid>(type: "uuid", nullable: false),
@@ -32,17 +32,17 @@ namespace ShopWebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_storage_warehouse", x => x.article);
+                    table.PrimaryKey("PK_warehouse", x => x.article);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "reserved_orders");
+                name: "reserved_products");
 
             migrationBuilder.DropTable(
-                name: "storage_warehouse");
+                name: "warehouse");
         }
     }
 }

@@ -19,7 +19,7 @@ namespace ShopWebApi.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("ShopWebApi.Model.ProductInWarehouse", b =>
+            modelBuilder.Entity("ShopWebApi.Model.Entity.ProductInWarehouse", b =>
                 {
                     b.Property<Guid>("Article")
                         .HasColumnType("uuid")
@@ -36,10 +36,10 @@ namespace ShopWebApi.Migrations
 
                     b.HasKey("Article");
 
-                    b.ToTable("storage_warehouse");
+                    b.ToTable("warehouse");
                 });
 
-            modelBuilder.Entity("ShopWebApi.Model.ReservedProducts", b =>
+            modelBuilder.Entity("ShopWebApi.Model.Entity.ReservedProduct", b =>
                 {
                     b.Property<Guid>("IdOrder")
                         .HasColumnType("uuid")
@@ -56,7 +56,7 @@ namespace ShopWebApi.Migrations
 
                     b.HasKey("IdOrder");
 
-                    b.ToTable("reserved_orders");
+                    b.ToTable("reserved_products");
                 });
 #pragma warning restore 612, 618
         }

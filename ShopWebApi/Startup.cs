@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using ShopWebApi.Infrastructure.Extensions;
 
 namespace ShopWebApi
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,6 +26,7 @@ namespace ShopWebApi
             services.ConfigureBackendSwagger();
             services.ConfigureDomainManagers();
             services.ConfigureRepositories();
+            services.ConfigureJobs(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

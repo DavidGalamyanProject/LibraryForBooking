@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ShopWebApi.Model;
+using ShopWebApi.Model.Entity;
 
 namespace ShopWebApi.Data.EntityFramework.Configurations
 {
-    public class ReservedOrderConfiguration : IEntityTypeConfiguration<ReservedProducts>
+    public class ReservConfiguration : IEntityTypeConfiguration<ReservedProduct>
     {
-        public void Configure(EntityTypeBuilder<ReservedProducts> builder)
+        public void Configure(EntityTypeBuilder<ReservedProduct> builder)
         {
-            builder.ToTable("reserved_orders");
+            builder.ToTable("reserved_products");
 
             builder.HasKey(key => key.IdOrder);
 
