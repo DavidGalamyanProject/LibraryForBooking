@@ -25,9 +25,10 @@ namespace LibraryBookingGoods
                 
             }
             catch (Exception ex)
-            {               
+            {
+                return default;
             }
-            return default;
+            
         }
     }
 }

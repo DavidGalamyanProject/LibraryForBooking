@@ -24,18 +24,24 @@ namespace ShopWebApi.Controllers
         {
             var resultReserv = _productManager.AddRequestToQueue(request);
 
-            if(resultReserv == null)
+            if (resultReserv == null)
             {
                 return BadRequest();
             }
 
             return Ok(resultReserv);
         }
-        [HttpPut]
+        [HttpGet]
         public async Task<IActionResult> Upload()
         {
             _productManager.UploadReservList();
             await _warehouseManager.UploadProductList();
+            return Ok();
+        }
+        [HttpPut]
+        public IActionResult UpdateBase()
+        {
+            _productManager.ReservProducts();
             return Ok();
         }
     }

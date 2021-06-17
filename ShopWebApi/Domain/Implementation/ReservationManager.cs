@@ -2,11 +2,9 @@
 using ShopWebApi.Domain.Interfaces;
 using ShopWebApi.Model.Dto;
 using ShopWebApi.Model.Entity;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Threading.Tasks;
 
 namespace ShopWebApi.Domain.Implementation
 {
@@ -29,27 +27,17 @@ namespace ShopWebApi.Domain.Implementation
             }
             if (SingletonAccounting.RequestReservQueue == null)
             {
-                SingletonAccounting.RequestReservQueue = new ConcurrentQueue<ReservedProduct>();
+                SingletonAccounting.RequestReservQueue = new ConcurrentQueue<ProductReserve>();
             }
-            
-            SingletonAccounting.RequestReservQueue.Enqueue(new ReservedProduct
-            {
-                IdOrder = Guid.NewGuid(),
-                ProductName = request.ProductName,
-                Quantity = request.Quantity,
-                ReservationTime = DateTime.UtcNow
-            });
-            if (SingletonAccounting.RequestReservQueue.Count > 500)
-            {
-               ReservProducts();
-            }
-            return new ReserveProductResponse() {Id = Guid.NewGuid()};
+            var newDto = new Dto().CreateProductReserv(request.ProductName,request.Quantity);
+            SingletonAccounting.RequestReservQueue.Enqueue(newDto);
+            return new ReserveProductResponse() {Id = newDto.IdOrder};
         }
 
-        private void ReservProducts()
+        public void ReservProducts()
         {
             var list = SingletonAccounting.RequestReservQueue.ToImmutableArray();
-            var tempList = new List<ReservedProduct>();
+            var tempList = new List<ProductReserve>();
             SingletonAccounting.RequestReservQueue.Clear();
             foreach(var reserv in list)
             {

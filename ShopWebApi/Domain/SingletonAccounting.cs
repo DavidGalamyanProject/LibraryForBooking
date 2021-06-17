@@ -9,7 +9,7 @@ namespace ShopWebApi.Domain
     {
         private SingletonAccounting() { }
         internal static ConcurrentDictionary<string, int> ProductsWarehouse { get; set; }
-        internal static ConcurrentQueue<ReservedProduct> RequestReservQueue { get; set; }
-        internal static ImmutableList<ReservedProduct> ReservList { get; set; }
+        internal static ConcurrentQueue<ProductReserve> RequestReservQueue { get; set; }
+        internal static ImmutableList<ProductReserve> ReservList { get; set; }
     }
 }

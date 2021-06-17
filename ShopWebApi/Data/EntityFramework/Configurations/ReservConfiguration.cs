@@ -4,9 +4,9 @@ using ShopWebApi.Model.Entity;
 
 namespace ShopWebApi.Data.EntityFramework.Configurations
 {
-    public class ReservConfiguration : IEntityTypeConfiguration<ReservedProduct>
+    public class ReservConfiguration : IEntityTypeConfiguration<ProductReserve>
     {
-        public void Configure(EntityTypeBuilder<ReservedProduct> builder)
+        public void Configure(EntityTypeBuilder<ProductReserve> builder)
         {
             builder.ToTable("reserved_products");
 

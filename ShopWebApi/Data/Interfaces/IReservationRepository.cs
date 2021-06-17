@@ -8,10 +8,10 @@ namespace ShopWebApi.Data.Interfaces
     public interface IReservationRepository
     {
         /// <summary> Резервирует один товар </summary>
-        void CreateReserve(ReservedProduct product);
+        void CreateReserve(ProductReserve product);
         /// <summary> Резервирует список товаров </summary>
-        void AddReserveProducts(List<ReservedProduct> product);
+        void AddReserveProducts(List<ProductReserve> product);
         /// <summary> Возвращает все зарезервированные товары (заказы) </summary>
-        ImmutableList<ReservedProduct> GetReservProducts();
+        ImmutableList<ProductReserve> GetReservProducts();
     }
 }

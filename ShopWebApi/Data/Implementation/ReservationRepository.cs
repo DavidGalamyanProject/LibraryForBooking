@@ -17,21 +17,18 @@ namespace ShopWebApi.Data.Implementation
             _dbContext = dbContext;
         }
 
-        public void CreateReserve(ReservedProduct product)
+        public void CreateReserve(ProductReserve product)
         {
             _dbContext.ReservedProducts.Add(product);
             _dbContext.SaveChanges();
         }
-        public void AddReserveProducts(List<ReservedProduct> product)
+        public void AddReserveProducts(List<ProductReserve> product)
         {
-            foreach (var item in product)
-            {
-                _dbContext.ReservedProducts.Add(item);
-            }
+            _dbContext.ReservedProducts.AddRange(product);
             _dbContext.SaveChanges();
         }
 
-        public ImmutableList<ReservedProduct> GetReservProducts()
+        public ImmutableList<ProductReserve> GetReservProducts()
         {
             var result = _dbContext.ReservedProducts.ToImmutableList();
             return result;
