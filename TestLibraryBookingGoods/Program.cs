@@ -29,8 +29,7 @@ namespace TestLibraryBookingGoods
             myThread8.Start(); //запускаем поток
             var myThread9 = new Thread(new ThreadStart(Foo)); //Создаем новый объект потока (Thread)
             myThread9.Start(); //запускаем поток
-            var myThread10 = new Thread(new ThreadStart(Foo)); //Создаем новый объект потока (Thread)
-            myThread10.Start(); //запускаем поток
+
 
             static void Foo()
             {
