@@ -1,4 +1,5 @@
 ﻿using ShopWebApi.Model.Dto;
+using System.Threading.Tasks;
 
 namespace ShopWebApi.Domain.Interfaces
 {

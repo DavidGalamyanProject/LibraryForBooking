@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopWebApi.Data.EntityFramework;
+﻿using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Model.Entity;
+using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,23 +17,20 @@ namespace ShopWebApi.Data.Implementation
             _dbContext = dbContext;
         }
 
-        public async Task<Dictionary<string, int>> GetListProduct()
+        public Task<List<Warehouse>> GetListProduct()
         {
-            var result = await _dbContext.Warehouse.ToDictionaryAsync(x => x.ProductName, x => x.Quantity);
+            throw new NotImplementedException();
+        }
+
+        public Warehouse GetProduct(Product product)
+        {
+            var result = _dbContext.Warehouse.FirstOrDefault(x => x.Product == product);
             return result;
         }
 
-        public async Task<WarehouseProduct> GetProduct(string productName)
+        public void UpdateProductWarehouse(Warehouse productInWarhouse)
         {
-            var result = await _dbContext.Warehouse.FirstOrDefaultAsync(x => x.ProductName == productName);
-            return result;
-        }
-        public void UpdateWarehouse(string productName, int quantity)
-        {
-             var productInWarehouse =  GetProduct(productName).Result;
-             productInWarehouse.Quantity = quantity;
-             _dbContext.Warehouse.Update(productInWarehouse);
-             _dbContext.SaveChanges();           
+            _dbContext.Warehouse.Update(productInWarhouse);
         }
     }
 }

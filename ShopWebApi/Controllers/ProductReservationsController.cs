@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopWebApi.Domain;
 using ShopWebApi.Domain.Interfaces;
 using ShopWebApi.Model.Dto;
 using System;
-using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
 namespace ShopWebApi.Controllers
@@ -12,30 +12,32 @@ namespace ShopWebApi.Controllers
     public class ProductReservationsController : ControllerBase
     {
         private readonly IReservationManager _productManager;
-        private readonly IWarehouseManager _warehouseManager;
 
-        public ProductReservationsController(IReservationManager productManager, IWarehouseManager warehouseManager)
+        public ProductReservationsController(IReservationManager productManager)
         {
-            _productManager = productManager;
-            _warehouseManager = warehouseManager;
+            _productManager = productManager;            
         }
         [HttpPost]
         public IActionResult ReservProduct([FromBody] ProductReservRequest request)
         {
             var resultReserv = _productManager.AddRequestToQueue(request);
 
-            if (resultReserv == null)
-            {
-                return BadRequest();
-            }
-
             return Ok(resultReserv);
         }
+        [HttpGet("id/{id}")]
+        public IActionResult CheckReserv([FromRoute] Guid id)
+        {
+            if (SingletonAccounting.ListOfReservedProducts.ContainsKey(id))
+            {
+                return Ok(id);
+            }
+            return BadRequest();
+
+        }
         [HttpGet]
-        public async Task<IActionResult> Upload()
+        public IActionResult Upload()
         {
             _productManager.UploadReservList();
-            await _warehouseManager.UploadProductList();
             return Ok();
         }
         [HttpPut]

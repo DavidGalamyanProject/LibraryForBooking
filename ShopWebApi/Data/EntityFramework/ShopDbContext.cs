@@ -6,8 +6,9 @@ namespace ShopWebApi.Data.EntityFramework
 {
     public class ShopDbContext : DbContext
     {
-        public DbSet<WarehouseProduct> Warehouse { get; set; }
-        public DbSet<ProductReserve> ReservedProducts { get; set; }
+        public DbSet<Warehouse> Warehouse { get; set; }
+        public DbSet<Reserv> ReservedProducts { get; set; }
+        public DbSet<Product> Products { get; set; }
         public ShopDbContext(DbContextOptions<ShopDbContext> options):base(options)
         {
         }
@@ -15,6 +16,7 @@ namespace ShopWebApi.Data.EntityFramework
         {
             modelBuilder.ApplyConfiguration(new ReservConfiguration());
             modelBuilder.ApplyConfiguration(new WarehouseConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
         }
     }
 }

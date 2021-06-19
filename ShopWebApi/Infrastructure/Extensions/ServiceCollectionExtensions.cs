@@ -1,12 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentScheduler;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Implementation;
 using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Domain.Implementation;
 using ShopWebApi.Domain.Interfaces;
+using ShopWebApi.Domain.Job;
+using System;
 
 namespace ShopWebApi.Infrastructure.Extensions
 {
@@ -33,14 +37,18 @@ namespace ShopWebApi.Infrastructure.Extensions
         {
             services.AddScoped<IReservationManager, ReservationManager>();
             services.AddScoped<IWarehouseManager, WarehouseManager>();
+            services.AddScoped<IProductManager, ProductManager>();
         }
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IWarehouseRepository, WarehouseRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
-        public static void ConfigureJobs(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureJobs(this IServiceCollection services)
         {
+            JobManager.Initialize();
+            JobManager.AddJob<JobReserv>(s => s.ToRunNow().AndEvery(3).Seconds());
         }
     }
 }

@@ -19,44 +19,92 @@ namespace ShopWebApi.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("ShopWebApi.Model.Entity.ProductInWarehouse", b =>
+            modelBuilder.Entity("ShopWebApi.Model.Entity.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("ProductInformation")
+                        .HasColumnType("text")
+                        .HasColumnName("product_information");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("text")
+                        .HasColumnName("product_name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("products");
+                });
+
+            modelBuilder.Entity("ShopWebApi.Model.Entity.Reserve", b =>
+                {
+                    b.Property<Guid>("IdOrder")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
+                    b.Property<DateTime>("ReservationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("reservation_time");
+
+                    b.Property<Guid?>("product_id")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("IdOrder");
+
+                    b.HasIndex("product_id");
+
+                    b.ToTable("reserved");
+                });
+
+            modelBuilder.Entity("ShopWebApi.Model.Entity.Warehouse", b =>
                 {
                     b.Property<Guid>("Article")
                         .HasColumnType("uuid")
                         .HasColumnName("article");
 
-                    b.Property<string>("ProductInformation")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("text");
-
                     b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
+                    b.Property<Guid?>("product_id")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Article");
+
+                    b.HasIndex("product_id");
 
                     b.ToTable("warehouse");
                 });
 
-            modelBuilder.Entity("ShopWebApi.Model.Entity.ReservedProduct", b =>
+            modelBuilder.Entity("ShopWebApi.Model.Entity.Reserve", b =>
                 {
-                    b.Property<Guid>("IdOrder")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id_order");
+                    b.HasOne("ShopWebApi.Model.Entity.Product", "Product")
+                        .WithMany("Reserve")
+                        .HasForeignKey("product_id");
 
-                    b.Property<string>("ProductName")
-                        .HasColumnType("text");
+                    b.Navigation("Product");
+                });
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+            modelBuilder.Entity("ShopWebApi.Model.Entity.Warehouse", b =>
+                {
+                    b.HasOne("ShopWebApi.Model.Entity.Product", "Product")
+                        .WithMany("Warehouse")
+                        .HasForeignKey("product_id");
 
-                    b.Property<DateTime>("ReservationTime")
-                        .HasColumnType("timestamp without time zone");
+                    b.Navigation("Product");
+                });
 
-                    b.HasKey("IdOrder");
+            modelBuilder.Entity("ShopWebApi.Model.Entity.Product", b =>
+                {
+                    b.Navigation("Reserve");
 
-                    b.ToTable("reserved_products");
+                    b.Navigation("Warehouse");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 ﻿using LibraryBookingGoods.Dto;
 using System;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -17,12 +18,12 @@ namespace LibraryBookingGoods
             try
             {
                 var responseMessage = await httpClient.PostAsync("https://localhost:44387/productreservations/", stringContent);
-                using var readResponse = responseMessage.Content.ReadAsStreamAsync().Result;
-                var json = JsonSerializer.DeserializeAsync<ReserveProductResponse>(readResponse,
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }).Result;
+                using var readResponse = await responseMessage.Content.ReadAsStreamAsync();
+                var json = await JsonSerializer.DeserializeAsync<ReserveProductResponse>(readResponse,
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                 var result = json.Id;
                 return result;
-                
+
             }
             catch (Exception ex)
             {

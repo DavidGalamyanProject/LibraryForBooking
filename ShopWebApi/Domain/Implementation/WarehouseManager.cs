@@ -1,8 +1,6 @@
 ﻿using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Domain.Interfaces;
-using System.Collections.Concurrent;
-using System.Collections.Immutable;
-using System.Threading.Tasks;
+using ShopWebApi.Model.Entity;
 
 namespace ShopWebApi.Domain.Implementation
 {
@@ -12,19 +10,18 @@ namespace ShopWebApi.Domain.Implementation
 
         public WarehouseManager(IWarehouseRepository warehouseRepository)
         {
-            _warehouseRepository = warehouseRepository;
+            _warehouseRepository = warehouseRepository;            
         }
-        public async Task UploadProductList()
+
+        public Warehouse GetProduct(Product product)
         {
-            var firstDictionary = await _warehouseRepository.GetListProduct();
-            SingletonAccounting.ProductsWarehouse = new ConcurrentDictionary<string, int>(firstDictionary);
+            var result = _warehouseRepository.GetProduct(product);
+            return result;
         }
-        public void UpdateProductWarehouse(ImmutableDictionary<string,int> productWarehouse)
+
+        public void UpdateProductWarehouse(Warehouse productInWarehouse)
         {
-            foreach(var product in productWarehouse)
-            {
-               _warehouseRepository.UpdateWarehouse(product.Key, product.Value);
-            }
+            _warehouseRepository.UpdateProductWarehouse(productInWarehouse);
         }
     }
 }

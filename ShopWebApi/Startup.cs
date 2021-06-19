@@ -26,7 +26,7 @@ namespace ShopWebApi
             services.ConfigureBackendSwagger();
             services.ConfigureDomainManagers();
             services.ConfigureRepositories();
-            services.ConfigureJobs(Configuration);
+            services.ConfigureJobs();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
+﻿using ShopWebApi.Model.Entity;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShopWebApi.Domain.Interfaces
 {
     public interface IWarehouseManager
     {
-        /// <summary>Загружает список товаров со склада, используется только при запуске сервера </summary>
-        Task UploadProductList();
-        void UpdateProductWarehouse(ImmutableDictionary<string, int> productWarehouse);
+        /// <summary>Загружает Dictionary товаров со склада, помещает их в статик поле класса SingletonAccounting </summary>
+        Warehouse GetProduct(Product product);
+        void UpdateProductWarehouse(Warehouse productInWarehouse);
     }
 }

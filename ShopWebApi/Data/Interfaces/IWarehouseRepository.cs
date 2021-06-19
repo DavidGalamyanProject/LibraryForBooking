@@ -1,6 +1,6 @@
 ﻿using ShopWebApi.Model.Entity;
+using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Threading.Tasks;
 
 namespace ShopWebApi.Data.Interfaces
@@ -8,12 +8,12 @@ namespace ShopWebApi.Data.Interfaces
     public interface IWarehouseRepository
     {
         /// <summary> Возвращает товар из базы данных, если товара нет вернется null  </summary>
-        Task<WarehouseProduct> GetProduct(string productName);
+        Warehouse GetProduct(Product product);
         /// <summary> Изменяет количество товара на складе </summary>
         /// <param name="productName"></param>
         /// <param name="quantity"></param>
-        void UpdateWarehouse(string productName, int quantity);
+        void UpdateProductWarehouse(Warehouse productInWarehouse);
         /// <summary> Метод возвращает Dictionary<productName,quantity> товаров которые есть на складе и их количество </summary>
-        Task<Dictionary<string, int>> GetListProduct();
+        Task<List<Warehouse>> GetListProduct();
     }
 }

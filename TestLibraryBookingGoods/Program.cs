@@ -1,13 +1,13 @@
 ﻿using LibraryBookingGoods;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace TestLibraryBookingGoods
 {
     class Program
     {
-        private const int _numberOfRequests = 620;
+        private readonly static object _lock = new object();
+        private const int _numberOfRequests = 100;
         static void Main(string[] args)
         {
 
@@ -33,12 +33,14 @@ namespace TestLibraryBookingGoods
 
             static void Foo()
             {
-                var shop = new ShopStorage();
-                for (int i = 0; i < _numberOfRequests; i++)
+                lock (_lock)
                 {
-                    var result =  shop.ReservProduct("lemon", 1).Result;
-                    Console.WriteLine(result);
-
+                    var shop = new ShopStorage();
+                    for (int i = 0; i < _numberOfRequests; i++)
+                    {
+                        var result = shop.ReservProduct("lemon", 1).Result;
+                        Console.WriteLine(result);
+                    }
                 }
             }     
         }

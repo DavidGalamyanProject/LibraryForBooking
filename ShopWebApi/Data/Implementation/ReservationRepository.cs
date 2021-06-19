@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopWebApi.Data.EntityFramework;
+﻿using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Model.Entity;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Threading.Tasks;
 
 namespace ShopWebApi.Data.Implementation
 {
@@ -17,20 +16,20 @@ namespace ShopWebApi.Data.Implementation
             _dbContext = dbContext;
         }
 
-        public void CreateReserve(ProductReserve product)
+        public void CreateReserve(Reserv product)
         {
             _dbContext.ReservedProducts.Add(product);
             _dbContext.SaveChanges();
         }
-        public void AddReserveProducts(List<ProductReserve> product)
+        public void AddReserveProducts(List<Reserv> product)
         {
             _dbContext.ReservedProducts.AddRange(product);
             _dbContext.SaveChanges();
         }
 
-        public ImmutableList<ProductReserve> GetReservProducts()
+        public ImmutableDictionary<Guid, Guid> GetReservProducts()
         {
-            var result = _dbContext.ReservedProducts.ToImmutableList();
+            var result = _dbContext.ReservedProducts.ToImmutableDictionary( x => x.IdOrder, x => x.IdOrder);
             return result;
         }
     }
