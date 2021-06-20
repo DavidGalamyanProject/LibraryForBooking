@@ -23,7 +23,6 @@ namespace ShopWebApi.Data.EntityFramework.Configurations
             builder.HasOne(warehouse => warehouse.Product)
                    .WithMany(product => product.Warehouse)
                    .HasForeignKey("product_id");
-
         }
     }
 }

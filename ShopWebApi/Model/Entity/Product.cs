@@ -8,10 +8,14 @@ namespace ShopWebApi.Model.Entity
     {
         /// <summary> Primary key </summary>
         public Guid Id { get; set; }
+
         /// <summary> Название продукта </summary>
         public string ProductName { get; set; }
+
         /// <summary> Информация о продукте </summary>
         public string ProductInformation { get; set; }
+
+
         public ICollection<Reserv> Reserve { get; set; }
         public ICollection<Warehouse> Warehouse { get; set; }
     }

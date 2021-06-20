@@ -23,7 +23,6 @@ namespace ShopWebApi.Data.EntityFramework.Configurations
             builder.Property(x => x.ProductInformation)
                    .ValueGeneratedNever()
                    .HasColumnName("product_information");
-
         }
 
     }

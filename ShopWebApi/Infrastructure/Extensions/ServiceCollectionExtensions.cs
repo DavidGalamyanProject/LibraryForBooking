@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Implementation;
@@ -21,6 +20,8 @@ namespace ShopWebApi.Infrastructure.Extensions
         public static void ConfigureDbContext(this IServiceCollection services,
             IConfiguration configuration)
         {
+            /// Ссылка на базу в файле appsettings.json. Если вы хотите пользоваться этой платформой, 
+            /// необходимо вставить ссылку на сервер баз данных postgresql
             services.AddDbContext<ShopDbContext>(options =>
             {
                 options.UseNpgsql(
