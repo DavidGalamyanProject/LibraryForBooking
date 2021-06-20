@@ -15,5 +15,8 @@ namespace ShopWebApi.Data.Interfaces
 
         /// <summary> Возвращает сипсок всех зарезервированные товары (заказы) </summary>
         ImmutableList<Reserv> GetReservProducts();
+
+        /// <summary> Ищем резерв по Id </summary>
+        Reserv GetReservById(Guid id);
     }
 }

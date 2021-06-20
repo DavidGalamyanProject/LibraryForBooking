@@ -1,14 +1,17 @@
-﻿using FluentScheduler;
+﻿using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Quartz;
 using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Implementation;
 using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Domain.Implementation;
 using ShopWebApi.Domain.Interfaces;
 using ShopWebApi.Domain.Job;
+using ShopWebApi.Infrastructure.Validation;
+using ShopWebApi.Model.Dto;
 using System;
 using System.IO;
 using System.Reflection;
@@ -20,8 +23,8 @@ namespace ShopWebApi.Infrastructure.Extensions
         public static void ConfigureDbContext(this IServiceCollection services,
             IConfiguration configuration)
         {
-            /// Ссылка на базу в файле appsettings.json. Если вы хотите пользоваться этой платформой, 
-            /// необходимо вставить ссылку на сервер баз данных postgresql
+            // Ссылка на базу в файле appsettings.json. Если вы хотите пользоваться этой платформой, 
+            // необходимо вставить ссылку на сервер баз данных postgresql
             services.AddDbContext<ShopDbContext>(options =>
             {
                 options.UseNpgsql(
@@ -53,8 +56,30 @@ namespace ShopWebApi.Infrastructure.Extensions
         }
         public static void ConfigureJobs(this IServiceCollection services)
         {
-            JobManager.Initialize();
-            JobManager.AddJob<JobReserv>(s => s.ToRunNow().AndEvery(3).Seconds());
+            services.AddQuartz(q =>
+            {
+               
+                q.UseMicrosoftDependencyInjectionScopedJobFactory();
+
+                var reservJobKey = new JobKey("ReserveJob");
+
+                q.AddJob<ReserveJob>(opts => opts.WithIdentity(reservJobKey));
+
+                // Периодическая обработка очереди заказов
+                q.AddTrigger(opts => opts
+                    .ForJob(reservJobKey) 
+                    .WithIdentity("ReserveJob-trigger") 
+                    .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(2)))
+                    .WithSimpleSchedule(a => a.WithIntervalInSeconds(1).RepeatForever()));
+
+            });
+
+            services.AddQuartzHostedService(
+                q => q.WaitForJobsToComplete = true);
+        }
+        public static void ConfigureValidation(this IServiceCollection services)
+        {
+            services.AddTransient<IValidator<ReservRequest>, ReservRequestValidator>();
         }
     }
 }

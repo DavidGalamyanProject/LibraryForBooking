@@ -18,7 +18,7 @@ namespace ShopWebApi.Data.Interfaces
 
         /// <summary> Добавляет позицию товара на склад </summary>
         Task AddStockPosition(StockPosition stockPosition);
-
+        /// <summary> Ищет товар по Ид </summary>
         StockPosition GetStockPositionByGuid(Guid id);
     }
 }

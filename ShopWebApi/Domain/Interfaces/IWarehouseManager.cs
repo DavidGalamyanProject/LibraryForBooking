@@ -23,6 +23,6 @@ namespace ShopWebApi.Domain.Interfaces
         StockPosition UpdateStockPositionWarehouseByVendorCode(StockPositionUpdateRequest request);
 
         /// <summary> Возвращает все позиции которые есть на складе </summary>
-        List<StockPosition> GetAllStockPositions();
+        Task<List<StockPosition>> GetAllStockPositions();
     }
 }

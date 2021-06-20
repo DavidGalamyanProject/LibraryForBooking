@@ -23,15 +23,15 @@ namespace ShopWebApi.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnName("Id");
 
                     b.Property<string>("ProductInformation")
                         .HasColumnType("text")
-                        .HasColumnName("product_information");
+                        .HasColumnName("ProductInformation");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("text")
-                        .HasColumnName("product_name");
+                        .HasColumnName("ProductName");
 
                     b.HasKey("Id");
 
@@ -42,42 +42,42 @@ namespace ShopWebApi.Migrations
                 {
                     b.Property<Guid>("IdOrder")
                         .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnName("IdOrder");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
-                        .HasColumnName("quantity");
+                        .HasColumnName("Qantity");
 
                     b.Property<DateTime>("ReservationTime")
                         .HasColumnType("timestamp without time zone")
-                        .HasColumnName("reservation_time");
-
-                    b.Property<Guid?>("product_id")
-                        .HasColumnType("uuid");
+                        .HasColumnName("ReservationTime");
 
                     b.HasKey("IdOrder");
 
-                    b.HasIndex("product_id");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("reserved");
                 });
 
-            modelBuilder.Entity("ShopWebApi.Model.Entity.Warehouse", b =>
+            modelBuilder.Entity("ShopWebApi.Model.Entity.StockPosition", b =>
                 {
-                    b.Property<Guid>("Article")
+                    b.Property<Guid>("VendorCode")
                         .HasColumnType("uuid")
-                        .HasColumnName("article");
+                        .HasColumnName("VendorCode");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
-                        .HasColumnName("quantity");
+                        .HasColumnName("Qantity");
 
-                    b.Property<Guid?>("product_id")
-                        .HasColumnType("uuid");
+                    b.HasKey("VendorCode");
 
-                    b.HasKey("Article");
-
-                    b.HasIndex("product_id");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("warehouse");
                 });
@@ -86,16 +86,20 @@ namespace ShopWebApi.Migrations
                 {
                     b.HasOne("ShopWebApi.Model.Entity.Product", "Product")
                         .WithMany("Reserve")
-                        .HasForeignKey("product_id");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ShopWebApi.Model.Entity.Warehouse", b =>
+            modelBuilder.Entity("ShopWebApi.Model.Entity.StockPosition", b =>
                 {
                     b.HasOne("ShopWebApi.Model.Entity.Product", "Product")
                         .WithMany("Warehouse")
-                        .HasForeignKey("product_id");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
                 });

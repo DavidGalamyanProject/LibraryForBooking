@@ -14,15 +14,15 @@ namespace ShopWebApi.Data.EntityFramework.Configurations
 
             builder.Property(x => x.VendorCode)
                    .ValueGeneratedNever()
-                   .HasColumnName("vendor_code");
+                   .HasColumnName("VendorCode");
 
             builder.Property(x => x.Quantity)
                    .ValueGeneratedNever()
-                   .HasColumnName("quantity");
+                   .HasColumnName("Qantity");
 
             builder.HasOne(warehouse => warehouse.Product)
                    .WithMany(product => product.Warehouse)
-                   .HasForeignKey("product_id");
+                   .HasForeignKey("ProductId");
         }
     }
 }

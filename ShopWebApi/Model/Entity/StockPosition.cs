@@ -7,11 +7,13 @@ namespace ShopWebApi.Model.Entity
     {
         /// <summary> VendorCode(id) позиции на складе </summary>
         public Guid VendorCode { get; set; }
-
-        /// <summary> Продукт на складе </summary>
-        public Product Product { get; set; }
+        /// <summary> Ид товара </summary>
+        public Guid ProductId { get; set; }
 
         /// <summary> Колличество на складе </summary>
         public int Quantity { get; set; }
+
+        /// <summary> Ссылка на товар </summary>
+        public Product Product { get; set; }
     }
 }

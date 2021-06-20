@@ -1,6 +1,7 @@
 ﻿using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Model.Entity;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
@@ -29,6 +30,12 @@ namespace ShopWebApi.Data.Implementation
         public ImmutableList<Reserv> GetReservProducts()
         {
             var result = _dbContext.Reserves.ToImmutableList();
+            return result;
+        }
+
+        public Reserv GetReservById(Guid id)
+        {
+            var result = _dbContext.Reserves.Find(id);
             return result;
         }
     }

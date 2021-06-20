@@ -37,9 +37,14 @@ namespace ShopWebApi.Domain.Implementation
             return stockPosition.VendorCode;
         }
 
-        public List<StockPosition> GetAllStockPositions()
-        {
-            return _warehouseRepository.GetAllStockPositions().Result;
+        public async Task<List<StockPosition>> GetAllStockPositions()
+        {            
+            var result = await _warehouseRepository.GetAllStockPositions();
+            if (result.Count == 0)
+            {
+                return default;
+            }
+            return result;
         }
 
         public StockPosition GetStockPosition(Product product)

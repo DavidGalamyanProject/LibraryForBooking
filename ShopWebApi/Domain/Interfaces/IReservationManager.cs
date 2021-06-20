@@ -1,4 +1,6 @@
 ﻿using ShopWebApi.Model.Dto;
+using ShopWebApi.Model.Entity;
+using System;
 
 namespace ShopWebApi.Domain.Interfaces
 {
@@ -12,5 +14,8 @@ namespace ShopWebApi.Domain.Interfaces
 
         /// <summary> Загружает в синглтон Dictionary, все резервы из базы данных </summary>
         void UploadReservList();
+
+        /// <summary> Ищем резерв по Id </summary>
+        Reserv GetReservById(Guid id);
     }
 }

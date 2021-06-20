@@ -14,19 +14,19 @@ namespace ShopWebApi.Data.EntityFramework.Configurations
 
             builder.Property(x => x.IdOrder)
                    .ValueGeneratedNever()
-                   .HasColumnName("id");
+                   .HasColumnName("IdOrder");
 
             builder.Property(x => x.Quantity)
                    .ValueGeneratedNever()
-                   .HasColumnName("quantity");
+                   .HasColumnName("Qantity");
 
             builder.Property(x => x.ReservationTime)
                    .ValueGeneratedNever()
-                   .HasColumnName("reservation_time");
+                   .HasColumnName("ReservationTime");
 
             builder.HasOne(reserv => reserv.Product)
                    .WithMany(product => product.Reserve)
-                   .HasForeignKey("product_id");
+                   .HasForeignKey("ProductId");
         }
     }
 }

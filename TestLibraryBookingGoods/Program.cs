@@ -6,8 +6,8 @@ namespace TestLibraryBookingGoods
 {
     class Program
     {
-        private readonly static object _lock = new object();
         private const int _numberOfRequests = 100;
+        private static readonly ShopStorage _shop = new ShopStorage();
         static void Main(string[] args)
         {
 
@@ -33,15 +33,11 @@ namespace TestLibraryBookingGoods
 
             static void Foo()
             {
-                lock (_lock)
-                {
-                    var shop = new ShopStorage();
-                    for (int i = 0; i < _numberOfRequests; i++)
-                    {
-                        var result = shop.ReservProduct("lemon", 1).Result;
-                        Console.WriteLine(result);
-                    }
-                }
+                for (int i = 0; i < _numberOfRequests; i++)
+                {                    
+                    var result = _shop.ReservProduct("lemon", 1).Result;
+                    Console.WriteLine(result);
+                }                                               
             }     
         }
     }

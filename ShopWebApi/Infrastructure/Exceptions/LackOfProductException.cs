@@ -6,7 +6,7 @@ namespace ShopWebApi.Infrastructure.Exceptions
     {
         public override string Message => _message;
 
-        private readonly string _message = "Пожалуйста, сначала зарегестрируйте товар";
+        private readonly string _message = "Такой товар не зарегистрирован.";
         public LackOfProductException()
         {
         }

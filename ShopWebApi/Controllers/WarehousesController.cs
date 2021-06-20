@@ -34,7 +34,7 @@ namespace ShopWebApi.Controllers
         }
 
         /// <summary> Изменяет колличество товара на складе по VendorCode(Guid) </summary>
-        /// <returns> Возвращает новый экземпляр StockPosition</returns>
+        /// <returns> Возвращает новый экземпляр StockPosition </returns>
         [HttpPut]
         public IActionResult UpdateStockPosition([FromBody] StockPositionUpdateRequest request)
         {
@@ -44,6 +44,18 @@ namespace ShopWebApi.Controllers
                 return Ok(result);
             }
             return BadRequest("Неверный VendorCode");
+        }
+
+        /// <summary> Возвращает список позиций на складе </summary>
+        [HttpGet]
+        public async Task<IActionResult> AllStockPosition()
+        {
+            var result = await _warehouseManager.GetAllStockPositions();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest("На складе нет позиций");
         }
     }
 }

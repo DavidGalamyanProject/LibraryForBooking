@@ -8,13 +8,16 @@ namespace ShopWebApi.Model.Entity
         /// <summary> Ид резерва (ид заказа) </summary>
         public Guid IdOrder { get; set; }
 
-        /// <summary> Зарезервированный продукт </summary>
-        public Product Product { get; set; }
+        /// <summary> Ид зарезервированного товара </summary>
+        public Guid ProductId { get; set; }
 
-        /// <summary> Колличество зарезервированного продукта </summary>
+        /// <summary> Колличество зарезервированного товара </summary>
         public int Quantity { get; set; }
 
         /// <summary> Время резерва </summary>
-        public DateTime ReservationTime { get; set; }        
+        public DateTime ReservationTime { get; set; }
+
+        /// <summary> Ссылка на товар </summary>
+        public Product Product { get; set; }
     }
 }
