@@ -14,7 +14,7 @@ namespace ShopWebApi.Domain.Job
 
         public void Execute()
         {
-            if(SingletonAccounting.RequestReservQueue == null)
+            if(Accounting.RequestReservQueue == null)
             {
                 return;
             }

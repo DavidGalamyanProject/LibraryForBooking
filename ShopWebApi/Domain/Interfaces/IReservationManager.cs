@@ -5,11 +5,11 @@ namespace ShopWebApi.Domain.Interfaces
 {
     public interface IReservationManager
     {
-        /// <summary> Добавляет запрос на резерв товара, если в момент регистрации резерва товар был на складе, он будет зарезервирован  </summary>
-        ReserveProductResponse AddRequestToQueue(ProductReservRequest request);
-        /// <summary> Резервирует список товаров </summary>
+        /// <summary> Добавляет запрос на резерв товара </summary>
+        ReserveResponse AddRequestToQueue(ReservRequest request);
+        /// <summary> Резервирует список товаров, из синглтон Queue класса Accounting </summary>
         void ReservProducts();
-        /// <summary> Загружает список зарезервированных товаров (заказов), используется только при запуске сервера </summary>
+        /// <summary> Загружает в синглтон Dictionary, все резервы из базы данных </summary>
         void UploadReservList();
     }
 }

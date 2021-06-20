@@ -38,7 +38,7 @@ namespace ShopWebApi.Migrations
                     b.ToTable("products");
                 });
 
-            modelBuilder.Entity("ShopWebApi.Model.Entity.Reserve", b =>
+            modelBuilder.Entity("ShopWebApi.Model.Entity.Reserv", b =>
                 {
                     b.Property<Guid>("IdOrder")
                         .HasColumnType("uuid")
@@ -82,7 +82,7 @@ namespace ShopWebApi.Migrations
                     b.ToTable("warehouse");
                 });
 
-            modelBuilder.Entity("ShopWebApi.Model.Entity.Reserve", b =>
+            modelBuilder.Entity("ShopWebApi.Model.Entity.Reserv", b =>
                 {
                     b.HasOne("ShopWebApi.Model.Entity.Product", "Product")
                         .WithMany("Reserve")

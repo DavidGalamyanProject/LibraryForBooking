@@ -1,11 +1,9 @@
 ﻿using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Domain.Interfaces;
-using ShopWebApi.Model;
 using ShopWebApi.Model.Dto;
 using ShopWebApi.Model.Entity;
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 
 namespace ShopWebApi.Domain.Implementation
 {
@@ -23,8 +21,9 @@ namespace ShopWebApi.Domain.Implementation
             _productManager = productManager;
         }
 
-        public ReserveProductResponse AddRequestToQueue(ProductReservRequest request)
+        public ReserveResponse AddRequestToQueue(ReservRequest request)
         {            
+            // Лочим, что бы потоки ничего не украли друг у друга
             lock (_lock)
             {
                 var createReservRequest = new ReservRequestToQueue()
@@ -34,31 +33,40 @@ namespace ShopWebApi.Domain.Implementation
                     Quantity = request.Quantity,
                     ReservationTime = DateTime.UtcNow
                 };
-                SingletonAccounting.RequestReservQueue.Enqueue(createReservRequest);
-                return new ReserveProductResponse() { Id = createReservRequest.IdOrder };
+                Accounting.RequestReservQueue.Enqueue(createReservRequest);
+                return new ReserveResponse() { Id = createReservRequest.IdOrder };
             }
         }
 
         public void ReservProducts()
         {
             // Достаем из нашей очереди все запросы (конвертируя в лист для чтения), после чего очищаем нашу очередь.
-            // Данная очередь потока безопасна, поэтому мы можем гарантировать, что во время очищения,
-            // никто ничего не записывал и не читал из нее.
-            var listRequest = SingletonAccounting.RequestReservQueue.ToImmutableList(); /// !TODO lock singlton
-            SingletonAccounting.RequestReservQueue.Clear();
-            // Сюда помещаются резервы кторые возможно было сделать с момент запроса
+            var listRequest = Accounting.GetImmutableList();
+
+            string messageProductNotExist = "Такого товара нет на скаладе (неверно указано название товара)";
+            string messageProductOutStock = "Товар закончился";
+
+            // Сюда помещаются резервы кторые возможно было сделать в момент запроса
             var tempReservList = new List<Reserv>();
+
             foreach (var reserv in listRequest)
             {                
+                // Поиск такого товара в базе
                 var productInfo = _productManager.GetProductByName(reserv.ProductName);
+                // Поиск позиции на складе
                 var productInWarehouse = _warehouseManager.GetProduct(productInfo);
-                if (productInWarehouse == null || productInfo == null)
+
+                if ( productInfo == null)
                 {
+                    // Если такого товара нет, запишем сообщение, ввели неверное имя товара
+                    Accounting.ListOfReservedProducts.TryAdd(reserv.IdOrder, messageProductNotExist);
                     continue;
                 }
+                
                 if (productInWarehouse.Quantity - reserv.Quantity >= 0)
                 {
                     productInWarehouse.Quantity -= reserv.Quantity;
+                    // Если товара достаточно, отнимаем необходимое колличество и сохраняем в базе
                     _warehouseManager.UpdateProductWarehouse(productInWarehouse);
                     var reservProduct = new Reserv
                     {
@@ -67,16 +75,32 @@ namespace ShopWebApi.Domain.Implementation
                         ReservationTime = reserv.ReservationTime,
                         Quantity = reserv.Quantity
                     };
+                    // Добавляем товар в список для резерва
                     tempReservList.Add(reservProduct);
                 }
-            }            
-            _reservRepository.AddReserveProducts(tempReservList);
+
+                else
+                {
+                    // Если товар закончился, запишем сообщение, товар закончился
+                    Accounting.ListOfReservedProducts.TryAdd(reserv.IdOrder, messageProductOutStock);
+                    continue;
+                }
+
+            }         
+            // После того как весь список запросов на резерв был проверен, можем создать резервы в базе
+            _reservRepository.AddReserveProducts(tempReservList);            
             UploadReservList();
         }
 
         public void UploadReservList()
         {
-            SingletonAccounting.ListOfReservedProducts = _reservRepository.GetReservProducts();
+            var result = _reservRepository.GetReservProducts();
+            string message = "Успешный резевр!";
+            // Добавляем все резервы с сообщением о успешном резерве!
+            foreach (var item in result)
+            {
+                Accounting.ListOfReservedProducts.AddOrUpdate(item.IdOrder, message, (key, oldValue) => message);
+            }
         }
     }
 }

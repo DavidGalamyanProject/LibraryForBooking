@@ -1,7 +1,6 @@
 ﻿using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Model.Entity;
-using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
@@ -18,18 +17,18 @@ namespace ShopWebApi.Data.Implementation
 
         public void CreateReserve(Reserv product)
         {
-            _dbContext.ReservedProducts.Add(product);
+            _dbContext.Reserves.Add(product);
             _dbContext.SaveChanges();
         }
         public void AddReserveProducts(List<Reserv> product)
         {
-            _dbContext.ReservedProducts.AddRange(product);
+            _dbContext.Reserves.AddRange(product);
             _dbContext.SaveChanges();
         }
 
-        public ImmutableDictionary<Guid, Guid> GetReservProducts()
+        public ImmutableList<Reserv> GetReservProducts()
         {
-            var result = _dbContext.ReservedProducts.ToImmutableDictionary( x => x.IdOrder, x => x.IdOrder);
+            var result = _dbContext.Reserves.ToImmutableList();
             return result;
         }
     }

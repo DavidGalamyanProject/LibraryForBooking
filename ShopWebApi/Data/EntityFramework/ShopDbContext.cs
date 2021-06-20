@@ -7,7 +7,7 @@ namespace ShopWebApi.Data.EntityFramework
     public class ShopDbContext : DbContext
     {
         public DbSet<Warehouse> Warehouse { get; set; }
-        public DbSet<Reserv> ReservedProducts { get; set; }
+        public DbSet<Reserv> Reserves { get; set; }
         public DbSet<Product> Products { get; set; }
         public ShopDbContext(DbContextOptions<ShopDbContext> options):base(options)
         {

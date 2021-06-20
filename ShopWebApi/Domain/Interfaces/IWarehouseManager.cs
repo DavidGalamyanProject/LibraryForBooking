@@ -1,14 +1,12 @@
 ﻿using ShopWebApi.Model.Entity;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ShopWebApi.Domain.Interfaces
 {
     public interface IWarehouseManager
     {
-        /// <summary>Загружает Dictionary товаров со склада, помещает их в статик поле класса SingletonAccounting </summary>
+        /// <summary> Возвращает позицию товара со складе </summary>
         Warehouse GetProduct(Product product);
+        /// <summary> Обновляет позицию на складе </summary>
         void UpdateProductWarehouse(Warehouse productInWarehouse);
     }
 }

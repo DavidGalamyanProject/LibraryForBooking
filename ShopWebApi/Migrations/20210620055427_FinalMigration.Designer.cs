@@ -10,8 +10,8 @@ using ShopWebApi.Data.EntityFramework;
 namespace ShopWebApi.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20210619042004_FinalMigrations")]
-    partial class FinalMigrations
+    [Migration("20210620055427_FinalMigration")]
+    partial class FinalMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace ShopWebApi.Migrations
                     b.ToTable("products");
                 });
 
-            modelBuilder.Entity("ShopWebApi.Model.Entity.Reserve", b =>
+            modelBuilder.Entity("ShopWebApi.Model.Entity.Reserv", b =>
                 {
                     b.Property<Guid>("IdOrder")
                         .HasColumnType("uuid")
@@ -84,7 +84,7 @@ namespace ShopWebApi.Migrations
                     b.ToTable("warehouse");
                 });
 
-            modelBuilder.Entity("ShopWebApi.Model.Entity.Reserve", b =>
+            modelBuilder.Entity("ShopWebApi.Model.Entity.Reserv", b =>
                 {
                     b.HasOne("ShopWebApi.Model.Entity.Product", "Product")
                         .WithMany("Reserve")

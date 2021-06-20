@@ -11,7 +11,7 @@ namespace ShopWebApi.Data.Interfaces
         void CreateReserve(Reserv product);
         /// <summary> Резервирует список товаров </summary>
         void AddReserveProducts(List<Reserv> product);
-        /// <summary> Возвращает все зарезервированные товары (заказы) </summary>
-        ImmutableDictionary<Guid, Guid> GetReservProducts();
+        /// <summary> Возвращает сипсок всех зарезервированные товары (заказы) </summary>
+        ImmutableList<Reserv> GetReservProducts();
     }
 }

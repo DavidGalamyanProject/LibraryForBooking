@@ -11,6 +11,8 @@ using ShopWebApi.Domain.Implementation;
 using ShopWebApi.Domain.Interfaces;
 using ShopWebApi.Domain.Job;
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace ShopWebApi.Infrastructure.Extensions
 {
@@ -31,6 +33,9 @@ namespace ShopWebApi.Infrastructure.Extensions
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LibraryForBookingGoods", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
         public static void ConfigureDomainManagers(this IServiceCollection services)
