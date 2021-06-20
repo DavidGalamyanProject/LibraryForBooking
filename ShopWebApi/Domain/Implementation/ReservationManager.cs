@@ -54,7 +54,7 @@ namespace ShopWebApi.Domain.Implementation
                 // Поиск такого товара в базе
                 var productInfo = _productManager.GetProductByName(reserv.ProductName);
                 // Поиск позиции на складе
-                var productInWarehouse = _warehouseManager.GetProduct(productInfo);
+                var productInWarehouse = _warehouseManager.GetStockPosition(productInfo);
 
                 if ( productInfo == null)
                 {
@@ -67,7 +67,7 @@ namespace ShopWebApi.Domain.Implementation
                 {
                     productInWarehouse.Quantity -= reserv.Quantity;
                     // Если товара достаточно, отнимаем необходимое колличество и сохраняем в базе
-                    _warehouseManager.UpdateProductWarehouse(productInWarehouse);
+                    _warehouseManager.UpdateStockPositionWarehouse(productInWarehouse);
                     var reservProduct = new Reserv
                     {
                         IdOrder = reserv.IdOrder,

@@ -2,11 +2,11 @@
 
 namespace ShopWebApi.Model.Entity
 {
-    /// <summary> Entity склада </summary>
-    public class Warehouse
+    /// <summary> Entity позиции на складе </summary>
+    public class StockPosition
     {
-        /// <summary> Артикул позиции на складе </summary>
-        public Guid Article { get; set; }
+        /// <summary> VendorCode(id) позиции на складе </summary>
+        public Guid VendorCode { get; set; }
 
         /// <summary> Продукт на складе </summary>
         public Product Product { get; set; }

@@ -4,17 +4,17 @@ using ShopWebApi.Model.Entity;
 
 namespace ShopWebApi.Data.EntityFramework.Configurations
 {
-    public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
+    public class WarehouseConfiguration : IEntityTypeConfiguration<StockPosition>
     {
-        public void Configure(EntityTypeBuilder<Warehouse> builder)
+        public void Configure(EntityTypeBuilder<StockPosition> builder)
         {
             builder.ToTable("warehouse");
 
-            builder.HasKey(key => key.Article);
+            builder.HasKey(key => key.VendorCode);
 
-            builder.Property(x => x.Article)
+            builder.Property(x => x.VendorCode)
                    .ValueGeneratedNever()
-                   .HasColumnName("article");
+                   .HasColumnName("vendor_code");
 
             builder.Property(x => x.Quantity)
                    .ValueGeneratedNever()

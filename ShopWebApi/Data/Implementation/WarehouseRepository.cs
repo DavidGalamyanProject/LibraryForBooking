@@ -1,4 +1,5 @@
-﻿using ShopWebApi.Data.EntityFramework;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Model.Entity;
 using System;
@@ -17,20 +18,34 @@ namespace ShopWebApi.Data.Implementation
             _dbContext = dbContext;
         }
 
-        public Task<List<Warehouse>> GetListProduct()
+        public async Task AddStockPosition(StockPosition stockPosition)
         {
-            throw new NotImplementedException();
+            await _dbContext.Warehouse.AddAsync(stockPosition);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Warehouse GetProduct(Product product)
+        public async Task<List<StockPosition>> GetAllStockPositions()
+        {
+            var result = await _dbContext.Warehouse.ToListAsync();
+            return result;
+        }
+
+        public StockPosition GetStockPositionByProduct(Product product)
         {
             var result = _dbContext.Warehouse.FirstOrDefault(x => x.Product == product);
             return result;
         }
 
-        public void UpdateProductWarehouse(Warehouse productInWarhouse)
+        public StockPosition GetStockPositionByGuid(Guid id)
+        {
+            var result = _dbContext.Warehouse.Find(id);
+            return result;
+        }
+
+        public void UpdateProductWarehouse(StockPosition productInWarhouse)
         {
             _dbContext.Warehouse.Update(productInWarhouse);
+            _dbContext.SaveChanges();
         }
     }
 }

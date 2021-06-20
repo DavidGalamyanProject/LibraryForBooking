@@ -6,7 +6,7 @@ namespace ShopWebApi.Model.Entity
     /// <summary> Entity товара </summary>
     public class Product
     {
-        /// <summary> Primary key </summary>
+        /// <summary> Первичный ключ </summary>
         public Guid Id { get; set; }
 
         /// <summary> Название продукта </summary>
@@ -17,6 +17,6 @@ namespace ShopWebApi.Model.Entity
 
 
         public ICollection<Reserv> Reserve { get; set; }
-        public ICollection<Warehouse> Warehouse { get; set; }
+        public ICollection<StockPosition> Warehouse { get; set; }
     }
 }

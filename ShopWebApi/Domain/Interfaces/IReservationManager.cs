@@ -1,5 +1,4 @@
 ﻿using ShopWebApi.Model.Dto;
-using System.Threading.Tasks;
 
 namespace ShopWebApi.Domain.Interfaces
 {
@@ -7,8 +6,10 @@ namespace ShopWebApi.Domain.Interfaces
     {
         /// <summary> Добавляет запрос на резерв товара </summary>
         ReserveResponse AddRequestToQueue(ReservRequest request);
+
         /// <summary> Резервирует список товаров, из синглтон Queue класса Accounting </summary>
         void ReservProducts();
+
         /// <summary> Загружает в синглтон Dictionary, все резервы из базы данных </summary>
         void UploadReservList();
     }

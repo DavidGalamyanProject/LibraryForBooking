@@ -6,7 +6,7 @@ using System;
 
 namespace ShopWebApi.Controllers
 {
-    /// <summary> Контроллер для резевра товара на складе </summary>
+    /// <summary> Контроллер для резервации </summary>
     [Route("[controller]")]
     [ApiController]
     public class ReservationsController : ControllerBase
@@ -17,9 +17,8 @@ namespace ShopWebApi.Controllers
         {
             _productManager = productManager;            
         }
-        /// <summary>
-        /// Добавляет заявку на резерв
-        /// </summary>
+
+        /// <summary> Добавляет заявку на резерв </summary>
         /// <param name="request">Тело запроса</param>
         /// <returns>Id заявки</returns>
         [HttpPost]
@@ -29,9 +28,8 @@ namespace ShopWebApi.Controllers
 
             return Ok(resultReserv);
         }
-        /// <summary>
-        /// Проверяет зарезервировался-ли товар.
-        /// </summary>
+
+        /// <summary> Проверяет зарезервировался-ли товар. </summary>
         /// <param name="id">Guid заявки на резерв</param>
         /// <returns> Возвращает сообщение типа string</returns>
         [HttpGet("id/{id}")]
@@ -43,6 +41,7 @@ namespace ShopWebApi.Controllers
             }
             return BadRequest("Неверный Guid");
         }
+
         [HttpPut]
         public IActionResult UpdateBase()
         {
