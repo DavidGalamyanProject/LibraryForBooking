@@ -38,6 +38,12 @@ shopStorage.Reserve("некий товар", 10);
   
 ### Пояснения по выполнению задания.  
   
+В проекти использованны библиотеки:
+Entity Framework  
+Quartz.net  
+FluentValidation  
+Swagger  
+
 В солюшене 3 проекта:  
   
 - **[ShopWebApi](./Docs/ShopWebApi.md)** - веб-сервер который принимает запросы на бронирование товара, и взаимодействует с БД (Postgres)..  
