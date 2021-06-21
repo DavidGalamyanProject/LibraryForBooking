@@ -57,7 +57,10 @@ namespace ShopWebApi.Domain.Implementation
                 var productInfo = _productManager.GetProductByName(reserv.ProductName);
                 // Поиск позиции на складе
                 var productInWarehouse = _warehouseManager.GetStockPosition(productInfo);
-                
+				if (productInfo == null || productInWarehouse == null)
+				{
+					continue;
+				}                
                 if (productInWarehouse.Quantity - reserv.Quantity >= 0)
                 {
                     productInWarehouse.Quantity -= reserv.Quantity;
