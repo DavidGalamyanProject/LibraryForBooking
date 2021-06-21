@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ShopWebApi.Model.Dto
 {
-    /// <summary> Модель запроса, для регистрации товара. </summary>
+    /// <summary> Запрос, для регистрации товара. </summary>
     public class ProductRequest
     {
         /// <summary> Название продукта. </summary>

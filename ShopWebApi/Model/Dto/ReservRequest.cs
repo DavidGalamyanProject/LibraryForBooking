@@ -1,7 +1,7 @@
 ﻿namespace ShopWebApi.Model.Dto
 {
-    /// <summary> Модель запроса, для резерва товара. </summary>
-    public class ReservRequest
+	/// <summary> Запрос, для резерва товара. </summary>
+	public class ReservRequest
     {
         /// <summary> Название продукта. </summary>
         public string ProductName { get; set; }
