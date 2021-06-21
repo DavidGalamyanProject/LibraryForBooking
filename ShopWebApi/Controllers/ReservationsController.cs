@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopWebApi.Domain;
 using ShopWebApi.Domain.Interfaces;
 using ShopWebApi.Model.Dto;
 using System;
 
 namespace ShopWebApi.Controllers
 {
-    /// <summary> Контроллер для резервации. </summary>
-    [Route("[controller]")]
+	/// <summary> Контроллер для резервации. </summary>
+	[Route("[controller]")]
     [ApiController]
     public class ReservationsController : ControllerBase
     {
@@ -36,9 +35,9 @@ namespace ShopWebApi.Controllers
             var result = _reservationManager.GetReservById(id);
             if (result != null)
             {
-                return Ok("Товар зарезервирован");
+                return Ok("Товар зарезервирован.");
             }
-            return BadRequest("Товар не зарезервирован");
+            return BadRequest("Товар не зарезервирован.");
         }
     }
 }

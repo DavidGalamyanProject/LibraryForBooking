@@ -18,6 +18,7 @@ Reserve - таблица, в ней хранятся всесь зарезерв
 
 ProductsController:  
 [HttpPost] Регистрация товара в базе данных.
+**[Демонстрация на примере Swagger](/Docs/Pics/Registration_Product.gif "Регистрация товара")  
 
 ReservationsController:  
 [HttpPost] Добавляет заявку на резерв товара в очередь.  

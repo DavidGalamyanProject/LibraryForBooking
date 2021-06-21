@@ -43,7 +43,7 @@ namespace ShopWebApi.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest("Неверный VendorCode");
+            return BadRequest("Неверный VendorCode.");
         }
 
         /// <summary> Возвращает список позиций на складе. </summary>
@@ -55,7 +55,7 @@ namespace ShopWebApi.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest("На складе нет позиций");
+            return BadRequest("На складе нет позиций.");
         }
     }
 }
