@@ -11,7 +11,7 @@ namespace LibraryBookingGoods
     {
         private readonly string _url = "https://localhost:44387/reservations";
         private static HttpClient _client = new HttpClient();
-        /// <summary> Резервируем товар на сервере </summary>
+        /// <summary> Резервирует товар на сервере. </summary>
         public async Task<Guid> ReservProduct(string nameProduct, int quantityReserv)
         {
 
@@ -28,7 +28,8 @@ namespace LibraryBookingGoods
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             return json.Id;
         }
-        /// <summary> Проверка на успешный резерв </summary>
+
+        /// <summary> Проверяет успешность резерва. </summary>
         public async Task<string> CheckReserv(Guid id)
         {
             var responseMessage = await _client.GetAsync($"{_url}/id/{id}");
@@ -38,6 +39,5 @@ namespace LibraryBookingGoods
             }
             return "Товар был зарезервирован";
         }
-
     }
 }

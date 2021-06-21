@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace ShopWebApi.Domain.Job
 {
+	/// <summary> Joba, дергается крватзом для регистрации резервов. </summary>
     [DisallowConcurrentExecution]
     public class ReserveJob : IJob
     {

@@ -6,7 +6,7 @@ using System;
 
 namespace ShopWebApi.Controllers
 {
-    /// <summary> Контроллер для резервации </summary>
+    /// <summary> Контроллер для резервации. </summary>
     [Route("[controller]")]
     [ApiController]
     public class ReservationsController : ControllerBase
@@ -18,9 +18,9 @@ namespace ShopWebApi.Controllers
             _reservationManager = reservationManager;            
         }
 
-        /// <summary> Добавляет заявку на резерв </summary>
-        /// <param name="request"> Нзавание товара, количество резерва</param>
-        /// <returns>Id заявки</returns>
+        /// <summary> Добавляет заявку на резерв. </summary>
+        /// <param name="request"> Назавание товара, количество резерва.</param>
+        /// <returns>Id заявки.</returns>
         [HttpPost]
         public IActionResult ReservProduct([FromBody] ReservRequest request)
         {

@@ -22,7 +22,7 @@ namespace ShopWebApi.Controllers
         {
             if (string.IsNullOrEmpty(request.ProductName))
             {
-                return BadRequest("Поле названия продукта не заполнено");
+                return BadRequest("Поле, имя продукта, не заполнено.");
             }
             var result =  _productManager.CreateProduct(request).Result;
             return Ok(result);

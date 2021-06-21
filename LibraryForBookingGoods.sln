@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopWebApi", "ShopWebApi\Sh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryBookingGoods", "LibraryBookingGoods\LibraryBookingGoods.csproj", "{367EE221-D80F-4321-BA7E-F825CFAD36EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLibraryBookingGoods", "TestLibraryBookingGoods\TestLibraryBookingGoods.csproj", "{E04866F7-69A4-418C-A8B3-7B0136B68BCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestLibraryBookingGoods", "TestLibraryBookingGoods\TestLibraryBookingGoods.csproj", "{E04866F7-69A4-418C-A8B3-7B0136B68BCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

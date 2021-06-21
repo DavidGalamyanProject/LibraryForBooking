@@ -24,7 +24,7 @@ namespace ShopWebApi.Infrastructure.Extensions
             IConfiguration configuration)
         {
             // Ссылка на базу в файле appsettings.json. Если вы хотите пользоваться этой платформой, 
-            // необходимо вставить ссылку на сервер баз данных postgresql
+            // необходимо вставить ссылку на сервер баз данных postgresql.
             services.AddDbContext<ShopDbContext>(options =>
             {
                 options.UseNpgsql(

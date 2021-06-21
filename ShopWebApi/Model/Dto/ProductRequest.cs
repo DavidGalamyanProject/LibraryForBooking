@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace ShopWebApi.Model.Dto
 {
-    /// <summary> Модель запроса, для регистрации товара </summary>
+    /// <summary> Модель запроса, для регистрации товара. </summary>
     public class ProductRequest
     {
-        /// <summary> Название продукта </summary>
+        /// <summary> Название продукта. </summary>
         public string ProductName { get; set; }
 
-        /// <summary> Информация о продукте </summary>
+        /// <summary> Информация о продукте. </summary>
         public string ProductInformation { get; set; }
     }
 }

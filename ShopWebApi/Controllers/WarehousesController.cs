@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopWebApi.Controllers
 {
-    /// <summary> Контроллер для работы со складом </summary>
+    /// <summary> Контроллер для работы со складом. </summary>
     [Route("[controller]")]
     [ApiController]
     public class WarehousesController : ControllerBase
@@ -17,8 +17,8 @@ namespace ShopWebApi.Controllers
             _warehouseManager = warehouseManager;
         }
 
-        /// <summary> Создает позицию товара на складе </summary>
-        /// <returns> Возвращает VendorCode(Guid) позиции</returns>
+        /// <summary> Создает позицию товара на складе. </summary>
+        /// <returns> Возвращает VendorCode(Guid) позиции.</returns>
         [HttpPost]
         public async Task<IActionResult> CreateStockPosition([FromBody] StockPositionAddRequest requset)
         {
@@ -33,8 +33,8 @@ namespace ShopWebApi.Controllers
             }            
         }
 
-        /// <summary> Изменяет колличество товара на складе по VendorCode(Guid) </summary>
-        /// <returns> Возвращает новый экземпляр StockPosition </returns>
+        /// <summary> Изменяет колличество товара на складе по VendorCode(Guid). </summary>
+        /// <returns> Возвращает новый экземпляр StockPosition. </returns>
         [HttpPut]
         public IActionResult UpdateStockPosition([FromBody] StockPositionUpdateRequest request)
         {
@@ -46,7 +46,7 @@ namespace ShopWebApi.Controllers
             return BadRequest("Неверный VendorCode");
         }
 
-        /// <summary> Возвращает список позиций на складе </summary>
+        /// <summary> Возвращает список позиций на складе. </summary>
         [HttpGet]
         public async Task<IActionResult> AllStockPosition()
         {
