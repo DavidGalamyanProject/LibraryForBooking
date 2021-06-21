@@ -16,7 +16,7 @@ namespace ShopWebApi.Controllers
             _productManager = productManager;
         }
 
-        /// <summary> Регестрирует товар в базе данных. </summary>
+        /// <summary> Регистрирует товар в базе данных. </summary>
         [HttpPost] 
         public IActionResult RegisregisterProduct([FromBody] ProductRequest request)
         {

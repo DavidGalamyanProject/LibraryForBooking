@@ -37,7 +37,7 @@ namespace ShopWebApi.Controllers
 			return Ok(response);
         }
 
-        /// <summary> Проверяет зарезервировался-ли товар. </summary>
+        /// <summary> Проверяет зарезервировался ли товар. </summary>
         [HttpGet("id/{id}")]
         public IActionResult CheckReserv([FromRoute] Guid id)
         {
