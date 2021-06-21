@@ -65,14 +65,5 @@ namespace ShopWebApi.Domain.Implementation
             // После того как весь список запросов на резерв был проверен, можем создать резервы в базе
             _reservRepository.AddReserveProducts(tempReservList);
         }
-
-        public void UploadReservList()
-        {
-            var result = _reservRepository.GetReservProducts();
-            foreach (var item in result)
-            {
-                Accounting.ListOfReservedProducts.GetOrAdd(item.IdOrder,"Успешный резерв");
-            }            
-        }
     }
 }

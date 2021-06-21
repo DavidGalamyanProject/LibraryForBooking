@@ -9,9 +9,6 @@ namespace ShopWebApi.Domain.Interfaces
         /// <summary> Резервирует список товаров, из синглтон Queue класса Accounting. </summary>
         void ReservProducts();
 
-        /// <summary> Загружает в синглтон Dictionary, все резервы из базы данных. </summary>
-        void UploadReservList();
-
         /// <summary> Ищем резерв по Id. </summary>
         Reserv GetReservById(Guid id);
     }

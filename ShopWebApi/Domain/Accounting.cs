@@ -12,7 +12,6 @@ namespace ShopWebApi.Domain
         private static readonly object _lock = new object();
         private static readonly object _lock2 = new object();
         private static ConcurrentQueue<ReservRequestToQueue> _reservRequestToQueues;
-        private static ConcurrentDictionary<Guid, string> _reservs;
         private Accounting() { }
         /// <summary> Реализация многопоточного Singlton </summary>
         internal static ConcurrentQueue<ReservRequestToQueue> RequestReservQueue {
@@ -29,24 +28,6 @@ namespace ShopWebApi.Domain
                     }
                 }
                 return _reservRequestToQueues;
-            }
-            set { }
-        }
-        /// <summary> Реализация многопоточного Singlton </summary>
-        internal static ConcurrentDictionary<Guid,string> ListOfReservedProducts {
-            get 
-            {
-                if (_reservs == null)
-                {
-                    lock (_lock2)
-                    {
-                        if (_reservs == null)
-                        {
-                            _reservs = new ConcurrentDictionary<Guid, string>();
-                        }
-                    }
-                }
-                return _reservs;
             }
             set { }
         }
