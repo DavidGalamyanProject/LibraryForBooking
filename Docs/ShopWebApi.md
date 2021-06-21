@@ -23,12 +23,12 @@ ProductsController:
 ReservationsController:  
 [HttpPost] Добавляет заявку на резерв товара в очередь.    
 [HttpGet("id/{id}")] Проверяет зарезервировался-ли товар. Если все прошло успешно, Вы получите статус код 200.  
-[Демонстрация на примере Swagger, Добавление и проверка резерва](/Docs/Pics/Reserv_Request.gif "Заявка на резерв, проверка резерва")    
+[Демонстрация на примере Swagger, добавление и проверка резерва](/Docs/Pics/Reserv_Request.gif "Заявка на резерв, проверка резерва")    
 
 WarehousesController:  
 [HttpPost] Создает позицию товара на складе. Возвращает VendorCode(Guid) позиции.
 [Демонстрация на примере Swagger](/Docs/Pics/Add_Position_Warehouse.gif "Добавление позиции на склад")  
-[HttpPut] Изменяет колличество товара на складе по VendorCode(Guid). Возвращает новый экземпляр StockPosition.
+[HttpPut] Изменяет колличество товара на складе по VendorCode(Guid). Возвращает новый экземпляр StockPosition.  
 [Демонстрация на примере Swagger](/Docs/Pics/Change_Position_Warehouse.gif "Изменение позиции на склад")    
 [HttpGet] Возвращает список позиций на складе.
 [Демонстрация на примере Swagger](/Docs/Pics/Get_All_Positions.gif "Вернуть список позиций на складе")  
