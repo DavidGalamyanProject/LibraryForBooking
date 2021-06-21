@@ -38,7 +38,7 @@ shopStorage.Reserve("некий товар", 10);
   
 ### Пояснения по выполнению задания.  
   
-В проекти использованны библиотеки:
+В проекти использованны библиотеки:  
 Entity Framework  
 Quartz.net  
 FluentValidation  
