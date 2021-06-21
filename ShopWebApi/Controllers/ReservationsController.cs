@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopWebApi.Domain;
 using ShopWebApi.Domain.Interfaces;
 using ShopWebApi.Model.Dto;
 using System;
@@ -23,9 +24,17 @@ namespace ShopWebApi.Controllers
         [HttpPost]
         public IActionResult ReservProduct([FromBody] ReservRequest request)
         {
-            var resultReserv = _reservationManager.AddRequestToQueue(request);
+			var createReservRequest = new ReservRequestToQueue()
+			{
+				IdOrder = Guid.NewGuid(),
+				ProductName = request.ProductName,
+				Quantity = request.Quantity,
+				ReservationTime = DateTime.UtcNow
+			};
+			Accounting.RequestReservQueue.Enqueue(createReservRequest);
+			var response = new ReserveResponse() { Id = createReservRequest.IdOrder };
 
-            return Ok(resultReserv);
+			return Ok(response);
         }
 
         /// <summary> Проверяет зарезервировался-ли товар. </summary>

@@ -21,22 +21,6 @@ namespace ShopWebApi.Domain.Implementation
             _productManager = productManager;
         }
 
-        public ReserveResponse AddRequestToQueue(ReservRequest request)
-        { 
-            lock (_lock)
-            {
-                var createReservRequest = new ReservRequestToQueue()
-                {
-                    IdOrder = Guid.NewGuid(),
-                    ProductName = request.ProductName,
-                    Quantity = request.Quantity,
-                    ReservationTime = DateTime.UtcNow
-                };
-                Accounting.RequestReservQueue.Enqueue(createReservRequest);
-                return new ReserveResponse() { Id = createReservRequest.IdOrder };
-            }
-        }
-
         public Reserv GetReservById(Guid id)
         {
             var result = _reservRepository.GetReservById(id);
