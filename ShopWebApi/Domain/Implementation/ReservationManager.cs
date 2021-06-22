@@ -3,6 +3,7 @@ using ShopWebApi.Domain.Interfaces;
 using ShopWebApi.Model.Entity;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace ShopWebApi.Domain.Implementation
@@ -29,8 +30,8 @@ namespace ShopWebApi.Domain.Implementation
         public void ReservProducts()
         {
 			// Пока в очереди есть эллементы
-            while(!Accounting.RequestReservQueue.IsEmpty)
-			{ 
+			for (int i = 0; i < 2000; i++)
+			{			
 				if (Accounting.RequestReservQueue.TryDequeue(out var reserv))
 				{
 					// Поиск такого товара в базе
