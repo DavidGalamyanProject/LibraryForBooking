@@ -8,7 +8,7 @@ using ShopWebApi.Infrastructure.Extensions;
 
 namespace ShopWebApi
 {
-    public class Startup
+	public class Startup
     {
 
         public Startup(IConfiguration configuration)
@@ -29,7 +29,7 @@ namespace ShopWebApi
             services.ConfigureRepositories();
             services.ConfigureJobs();
             services.ConfigureValidation();
-        }
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,5 +48,5 @@ namespace ShopWebApi
                 endpoints.MapControllers();
             });
         }
-    }
+	}
 }
