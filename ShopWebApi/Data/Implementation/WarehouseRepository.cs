@@ -4,12 +4,11 @@ using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Model.Entity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShopWebApi.Data.Implementation
 {
-    public class WarehouseRepository : IWarehouseRepository
+	public class WarehouseRepository : IWarehouseRepository
     {
         private readonly ShopDbContext _dbContext;
 
@@ -30,22 +29,22 @@ namespace ShopWebApi.Data.Implementation
             return result;
         }
 
-        public StockPosition GetStockPositionByProduct(Product product)
+        public async Task<StockPosition> GetStockPositionByProduct(Product product)
         {
-            var result = _dbContext.Warehouse.FirstOrDefault(x => x.Product == product);
+            var result = await _dbContext.Warehouse.FirstOrDefaultAsync(x => x.Product == product);
             return result;
         }
 
-        public StockPosition GetStockPositionByGuid(Guid id)
+        public async Task<StockPosition> GetStockPositionByGuid(Guid id)
         {
-            var result = _dbContext.Warehouse.Find(id);
+            var result = await _dbContext.Warehouse.FindAsync(id);
             return result;
         }
 
-        public void UpdateProductWarehouse(StockPosition productInWarhouse)
+        public async Task UpdateProductWarehouse(StockPosition productInWarhouse)
         {
             _dbContext.Warehouse.Update(productInWarhouse);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

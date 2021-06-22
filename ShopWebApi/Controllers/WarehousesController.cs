@@ -36,9 +36,9 @@ namespace ShopWebApi.Controllers
         /// <summary> Изменяет колличество товара на складе по VendorCode(Guid). </summary>
         /// <returns> Возвращает новый экземпляр StockPosition. </returns>
         [HttpPut]
-        public IActionResult UpdateStockPosition([FromBody] StockPositionUpdateRequest request)
+        public async Task<IActionResult> UpdateStockPosition([FromBody] StockPositionUpdateRequest request)
         {
-            var result = _warehouseManager.UpdateStockPositionWarehouseByVendorCode(request);
+            var result = await _warehouseManager.UpdateStockPositionWarehouseByVendorCode(request);
             if (result != null)
             {
                 return Ok(result);

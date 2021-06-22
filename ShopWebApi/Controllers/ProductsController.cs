@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopWebApi.Domain.Interfaces;
 using ShopWebApi.Model.Dto;
+using System.Threading.Tasks;
 
 namespace ShopWebApi.Controllers
 {
@@ -18,13 +19,13 @@ namespace ShopWebApi.Controllers
 
         /// <summary> Регистрирует товар в базе данных. </summary>
         [HttpPost] 
-        public IActionResult RegisregisterProduct([FromBody] ProductRequest request)
+        public async Task<IActionResult> RegisregisterProduct([FromBody] ProductRequest request)
         {
             if (string.IsNullOrEmpty(request.ProductName))
             {
                 return BadRequest("Поле, имя продукта, не заполнено.");
             }
-            var result =  _productManager.CreateProduct(request).Result;
+            var result = await _productManager.CreateProduct(request);
             return Ok(result);
         }
     }

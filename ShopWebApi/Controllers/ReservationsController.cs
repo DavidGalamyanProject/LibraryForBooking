@@ -3,6 +3,7 @@ using ShopWebApi.Domain;
 using ShopWebApi.Domain.Interfaces;
 using ShopWebApi.Model.Dto;
 using System;
+using System.Threading.Tasks;
 
 namespace ShopWebApi.Controllers
 {
@@ -39,9 +40,9 @@ namespace ShopWebApi.Controllers
 
         /// <summary> Проверяет зарезервировался ли товар. </summary>
         [HttpGet("id/{id}")]
-        public IActionResult CheckReserv([FromRoute] Guid id)
+        public async Task<IActionResult> CheckReserv([FromRoute] Guid id)
         {
-            var result = _reservationManager.GetReservById(id);
+            var result = await _reservationManager.GetReservById(id);
             if (result != null)
             {
                 return Ok("Товар зарезервирован.");

@@ -22,7 +22,7 @@ namespace ShopWebApi.Domain.Implementation
 
         public async Task<Guid> CreateStockPosition(StockPositionAddRequest request)
         {
-            var product = _productManager.GetProductByName(request.ProductName);
+            var product = await _productManager.GetProductByName(request.ProductName);
             if(product == null)
             {
                 throw new LackOfProductException();
@@ -47,22 +47,22 @@ namespace ShopWebApi.Domain.Implementation
             return result;
         }
 
-        public StockPosition GetStockPosition(Product product)
+        public async Task<StockPosition> GetStockPosition(Product product)
         {
-            var result = _warehouseRepository.GetStockPositionByProduct(product);
+            var result = await _warehouseRepository.GetStockPositionByProduct(product);
             return result;
         }
 
-        public void UpdateStockPositionWarehouse(StockPosition productInWarehouse)
+        public async Task UpdateStockPositionWarehouse(StockPosition productInWarehouse)
         {
-            _warehouseRepository.UpdateProductWarehouse(productInWarehouse);
+            await _warehouseRepository.UpdateProductWarehouse(productInWarehouse);
         }
 
-        public StockPosition UpdateStockPositionWarehouseByVendorCode(StockPositionUpdateRequest request)
+        public async Task<StockPosition> UpdateStockPositionWarehouseByVendorCode(StockPositionUpdateRequest request)
         {
-            var result = _warehouseRepository.GetStockPositionByGuid(request.VendorCode);
+            var result = await _warehouseRepository.GetStockPositionByGuid(request.VendorCode);
             result.Quantity = request.Quantity;
-            _warehouseRepository.UpdateProductWarehouse(result);
+            await _warehouseRepository.UpdateProductWarehouse(result);
             return result;
         }
     }

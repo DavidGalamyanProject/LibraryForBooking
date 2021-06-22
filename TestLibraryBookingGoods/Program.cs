@@ -6,7 +6,7 @@ namespace TestLibraryBookingGoods
 {
     class Program
     {
-        private const int _numberOfRequests = 100;
+        private const int _numberOfRequests = 500;
         private static readonly ShopStorage _shop = new ShopStorage();
         static void Main(string[] args)
         {

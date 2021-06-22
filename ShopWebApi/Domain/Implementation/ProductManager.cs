@@ -29,9 +29,9 @@ namespace ShopWebApi.Domain.Implementation
             return product.Id;
         }
 
-        public Product GetProductByName(string productName)
+        public async Task<Product> GetProductByName(string productName)
         {
-            var result = _productRepository.GetProductByName(productName);
+            var result = await _productRepository.GetProductByName(productName);
             return result;
         }
     }

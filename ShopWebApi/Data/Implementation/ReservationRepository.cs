@@ -4,6 +4,7 @@ using ShopWebApi.Model.Entity;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Threading.Tasks;
 
 namespace ShopWebApi.Data.Implementation
 {
@@ -16,15 +17,15 @@ namespace ShopWebApi.Data.Implementation
             _dbContext = dbContext;
         }
 
-        public void CreateReserve(Reserv product)
+        public async Task CreateReserve(Reserv product)
         {
-            _dbContext.Reserves.Add(product);
-            _dbContext.SaveChanges();
+            await _dbContext.Reserves.AddAsync(product);
+            await _dbContext.SaveChangesAsync();
         }
-        public void AddReserveProducts(List<Reserv> product)
+        public async Task AddReserveProducts(List<Reserv> product)
         {
-            _dbContext.Reserves.AddRange(product);
-            _dbContext.SaveChanges();
+			await _dbContext.Reserves.AddRangeAsync(product);
+			await _dbContext.SaveChangesAsync();
         }
 
         public ImmutableList<Reserv> GetReservProducts()
@@ -33,9 +34,9 @@ namespace ShopWebApi.Data.Implementation
             return result;
         }
 
-        public Reserv GetReservById(Guid id)
+        public async Task<Reserv> GetReservById(Guid id)
         {
-            var result = _dbContext.Reserves.Find(id);
+            var result = await _dbContext.Reserves.FindAsync(id);
             return result;
         }
     }

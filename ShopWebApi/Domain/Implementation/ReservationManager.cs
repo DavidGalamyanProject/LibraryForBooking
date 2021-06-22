@@ -1,15 +1,14 @@
 ﻿using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Domain.Interfaces;
-using ShopWebApi.Model.Dto;
 using ShopWebApi.Model.Entity;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ShopWebApi.Domain.Implementation
 {
-    public class ReservationManager : IReservationManager
+	public class ReservationManager : IReservationManager
     {
-        private readonly object _lock = new object();
         private readonly IReservationRepository _reservRepository;
         private readonly IProductManager _productManager;
         private readonly IWarehouseManager _warehouseManager;
@@ -21,13 +20,13 @@ namespace ShopWebApi.Domain.Implementation
             _productManager = productManager;
         }
 
-        public Reserv GetReservById(Guid id)
+        public async Task<Reserv> GetReservById(Guid id)
         {
-            var result = _reservRepository.GetReservById(id);
+            var result = await _reservRepository.GetReservById(id);
             return result;
         }
 
-        public void ReservProducts()
+        public async Task ReservProducts()
         {
             // Достаем из нашей очереди все запросы (конвертируя в лист для чтения), после чего очищаем нашу очередь.
             var listRequest = Accounting.GetImmutableList();
@@ -38,9 +37,9 @@ namespace ShopWebApi.Domain.Implementation
             foreach (var reserv in listRequest)
             {                
                 // Поиск такого товара в базе
-                var productInfo = _productManager.GetProductByName(reserv.ProductName);
+                var productInfo = await _productManager.GetProductByName(reserv.ProductName);
                 // Поиск позиции на складе
-                var productInWarehouse = _warehouseManager.GetStockPosition(productInfo);
+                var productInWarehouse = await _warehouseManager.GetStockPosition(productInfo);
 				if (productInfo == null || productInWarehouse == null)
 				{
 					continue;
@@ -49,7 +48,7 @@ namespace ShopWebApi.Domain.Implementation
                 {
                     productInWarehouse.Quantity -= reserv.Quantity;
                     // Если товара достаточно, отнимаем необходимое колличество и сохраняем в базе
-                    _warehouseManager.UpdateStockPositionWarehouse(productInWarehouse);
+                    await _warehouseManager.UpdateStockPositionWarehouse(productInWarehouse);
                     var reservProduct = new Reserv
                     {
                         IdOrder = reserv.IdOrder,
@@ -63,7 +62,7 @@ namespace ShopWebApi.Domain.Implementation
 
             }         
             // После того как весь список запросов на резерв был проверен, можем создать резервы в базе
-            _reservRepository.AddReserveProducts(tempReservList);
+            await _reservRepository.AddReserveProducts(tempReservList);
         }
     }
 }
