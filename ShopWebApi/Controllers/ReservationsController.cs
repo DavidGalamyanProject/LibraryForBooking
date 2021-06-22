@@ -32,7 +32,7 @@ namespace ShopWebApi.Controllers
 				Quantity = request.Quantity,
 				ReservationTime = DateTime.UtcNow
 			};
-			Accounting.RequestReservQueue.Enqueue(createReservRequest);
+			Accounting.Add(createReservRequest);
 			var response = new ReserveResponse() { Id = createReservRequest.IdOrder };
 
 			return Ok(response);
