@@ -17,15 +17,15 @@ namespace ShopWebApi.Data.Implementation
             _dbContext = dbContext;
         }
 
-        public async Task CreateReserve(Reserv product)
+		public void CreateReserve(Reserv product)
+		{
+			_dbContext.Reserves.Add(product);
+			_dbContext.SaveChanges();
+		}
+		public void AddReserveProducts(List<Reserv> product)
         {
-            await _dbContext.Reserves.AddAsync(product);
-            await _dbContext.SaveChangesAsync();
-        }
-        public async Task AddReserveProducts(List<Reserv> product)
-        {
-			await _dbContext.Reserves.AddRangeAsync(product);
-			await _dbContext.SaveChangesAsync();
+			_dbContext.Reserves.AddRange(product);
+			_dbContext.SaveChanges();
         }
 
         public ImmutableList<Reserv> GetReservProducts()

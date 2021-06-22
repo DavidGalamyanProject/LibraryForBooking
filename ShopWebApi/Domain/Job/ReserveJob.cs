@@ -17,7 +17,7 @@ namespace ShopWebApi.Domain.Job
 
         public Task Execute(IJobExecutionContext context)
         {
-            _manager.ReservProducts().Wait();
+            _manager.ReservProducts();
             return Task.CompletedTask;
         }
     }

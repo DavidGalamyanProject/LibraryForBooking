@@ -26,43 +26,50 @@ namespace ShopWebApi.Domain.Implementation
             return result;
         }
 
-        public async Task ReservProducts()
+        public void ReservProducts()
         {
-            // Достаем из нашей очереди все запросы (конвертируя в лист для чтения), после чего очищаем нашу очередь.
-            var listRequest = Accounting.GetImmutableList();
+			// Достаем из нашей очереди все запросы (конвертируя в лист для чтения), после чего очищаем нашу очередь.
+			
 
-            // Сюда помещаются резервы кторые возможно было сделать в момент запроса
-            var tempReservList = new List<Reserv>();
-
-            foreach (var reserv in listRequest)
-            {                
-                // Поиск такого товара в базе
-                var productInfo = await _productManager.GetProductByName(reserv.ProductName);
-                // Поиск позиции на складе
-                var productInWarehouse = await _warehouseManager.GetStockPosition(productInfo);
-				if (productInfo == null || productInWarehouse == null)
+			// Сюда помещаются резервы кторые возможно было сделать в момент запроса
+			var tempReservList = new List<Reserv>();
+            while(!Accounting.RequestReservQueue.IsEmpty)
+			{ 
+				if (Accounting.RequestReservQueue.TryDequeue(out var reserv))
 				{
-					continue;
-				}                
-                if (productInWarehouse.Quantity - reserv.Quantity >= 0)
-                {
-                    productInWarehouse.Quantity -= reserv.Quantity;
-                    // Если товара достаточно, отнимаем необходимое колличество и сохраняем в базе
-                    await _warehouseManager.UpdateStockPositionWarehouse(productInWarehouse);
-                    var reservProduct = new Reserv
-                    {
-                        IdOrder = reserv.IdOrder,
-                        Product = productInfo,
-                        ReservationTime = reserv.ReservationTime,
-                        Quantity = reserv.Quantity
-                    };
-                    // Добавляем товар в список для резерва
-                    tempReservList.Add(reservProduct);
-                }
+					// Поиск такого товара в базе
+					var productInfo = _productManager.GetProductByName(reserv.ProductName);
+					// Поиск позиции на складе
+					var productInWarehouse = _warehouseManager.GetStockPosition(productInfo);
+					if (productInfo == null || productInWarehouse == null)
+					{
+						continue;
+					}
+					if (productInWarehouse.Quantity - reserv.Quantity >= 0)
+					{
+						productInWarehouse.Quantity -= reserv.Quantity;
+						// Если товара достаточно, отнимаем необходимое колличество и сохраняем в базе
+						_warehouseManager.UpdateStockPositionWarehouse(productInWarehouse);
+						var reservProduct = new Reserv
+						{
+							IdOrder = reserv.IdOrder,
+							Product = productInfo,
+							ReservationTime = reserv.ReservationTime,
+							Quantity = reserv.Quantity
+						};
+						// Добавляем товар в список для резерва
+						tempReservList.Add(reservProduct);
+					}
 
-            }         
-            // После того как весь список запросов на резерв был проверен, можем создать резервы в базе
-            await _reservRepository.AddReserveProducts(tempReservList);
-        }
+				}
+				else
+				{
+					break;
+				}
+			}
+			// После того как весь список запросов на резерв был проверен, можем создать резервы в базе
+			_reservRepository.AddReserveProducts(tempReservList);
+		}
+        
     }
 }

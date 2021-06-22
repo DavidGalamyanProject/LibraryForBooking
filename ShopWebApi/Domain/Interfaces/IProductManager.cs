@@ -8,10 +8,10 @@ namespace ShopWebApi.Domain.Interfaces
     public interface IProductManager
     {
 		/// <summary> Возвращает товар по имени. </summary>
-		Task<Product> GetProductByName(string productName);
+		Product GetProductByName(string productName);
 
-        /// <summary> Создает Entity товара и добавляет его в базу данных. </summary>
-        /// <returns> Id созданого товара. </returns>
-        Task<Guid> CreateProduct(ProductRequest request);
+		/// <summary> Создает Entity товара и добавляет его в базу данных. </summary>
+		/// <returns> Id созданого товара. </returns>
+		Task<Guid> CreateProduct(ProductRequest request);
     }
 }

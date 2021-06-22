@@ -69,8 +69,8 @@ namespace ShopWebApi.Infrastructure.Extensions
                 q.AddTrigger(opts => opts
                     .ForJob(reservJobKey) 
                     .WithIdentity("ReserveJob-trigger") 
-                    .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(2)))
-                    .WithSimpleSchedule(a => a.WithIntervalInSeconds(1).RepeatForever()));
+                    .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(5)))
+                    .WithSimpleSchedule(a => a.WithIntervalInSeconds(5).RepeatForever()));
 
             });
 

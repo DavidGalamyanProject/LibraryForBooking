@@ -7,9 +7,9 @@ namespace ShopWebApi.Data.Interfaces
     public interface IProductRepository
     {
 		/// <summary> Ищет товар по имени. </summary>
-		Task<Product> GetProductByName(string productName);
+		Product GetProductByName(string productName);
 
-        /// <summary> Добавляет товар. </summary>
-        Task AddProduct(Product product);
+		/// <summary> Добавляет товар. </summary>
+		Task AddProduct(Product product);
     }
 }

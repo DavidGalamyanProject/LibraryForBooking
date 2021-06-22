@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopWebApi.Data.EntityFramework;
+﻿using ShopWebApi.Data.EntityFramework;
 using ShopWebApi.Data.Interfaces;
 using ShopWebApi.Model.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShopWebApi.Data.Implementation
@@ -20,10 +20,10 @@ namespace ShopWebApi.Data.Implementation
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Product> GetProductByName(string productName)
-        {
-            var result = await _dbContext.Products.FirstOrDefaultAsync(x => x.ProductName == productName);
-            return result;
-        }
-    }
+		public Product GetProductByName(string productName)
+		{
+			var result = _dbContext.Products.FirstOrDefault(x => x.ProductName == productName);
+			return result;
+		}
+	}
 }
