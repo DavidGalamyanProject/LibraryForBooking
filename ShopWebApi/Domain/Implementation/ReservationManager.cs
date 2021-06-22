@@ -28,9 +28,6 @@ namespace ShopWebApi.Domain.Implementation
 
         public void ReservProducts()
         {
-			// Достаем из нашей очереди все запросы (конвертируя в лист для чтения), после чего очищаем нашу очередь.
-			
-
 			// Сюда помещаются резервы кторые возможно было сделать в момент запроса
 			var tempReservList = new List<Reserv>();
             while(!Accounting.RequestReservQueue.IsEmpty)

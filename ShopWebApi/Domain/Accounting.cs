@@ -33,14 +33,5 @@ namespace ShopWebApi.Domain
 			{								
 			}
         }
-
-		/// <summary> Достаем из RequestReservQueue очереди все запросы (конвертируя в лист для чтения), после чего очищаем нашу очередь. </summary>
-		public static ImmutableList<ReservRequestToQueue> GetImmutableList()
-		{
-			var listRequest = Accounting.RequestReservQueue.ToImmutableList();
-			Accounting.RequestReservQueue.Clear();
-			return listRequest;
-
-		}
     }
 }
