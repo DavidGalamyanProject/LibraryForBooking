@@ -28,8 +28,7 @@ namespace ShopWebApi.Domain.Implementation
 
         public void ReservProducts()
         {
-			// Сюда помещаются резервы кторые возможно было сделать в момент запроса
-			var tempReservList = new List<Reserv>();
+			// Пока в очереди есть эллементы
             while(!Accounting.RequestReservQueue.IsEmpty)
 			{ 
 				if (Accounting.RequestReservQueue.TryDequeue(out var reserv))
@@ -54,18 +53,15 @@ namespace ShopWebApi.Domain.Implementation
 							ReservationTime = reserv.ReservationTime,
 							Quantity = reserv.Quantity
 						};
-						// Добавляем товар в список для резерва
-						tempReservList.Add(reservProduct);
+						// Добавляем зарезервированный товар в базу
+						_reservRepository.AddReserve(reservProduct);
 					}
-
 				}
 				else
 				{
 					break;
 				}
 			}
-			// После того как весь список запросов на резерв был проверен, можем создать резервы в базе
-			_reservRepository.AddReserveProducts(tempReservList);
 		}
         
     }

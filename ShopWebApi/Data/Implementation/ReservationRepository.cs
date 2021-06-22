@@ -17,10 +17,10 @@ namespace ShopWebApi.Data.Implementation
             _dbContext = dbContext;
         }
 
-		public void CreateReserve(Reserv product)
+		public void AddReserve(Reserv product)
 		{
 			_dbContext.Reserves.Add(product);
-			_dbContext.SaveChanges();
+		    _dbContext.SaveChanges();
 		}
 		public void AddReserveProducts(List<Reserv> product)
         {

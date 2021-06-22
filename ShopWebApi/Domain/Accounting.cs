@@ -1,12 +1,10 @@
 ﻿using ShopWebApi.Model.Dto;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Immutable;
 
 namespace ShopWebApi.Domain
 {
-    /// <summary> Списки учета, с их помощью снимается нагрузка с БД </summary>
-    internal class Accounting
+	/// <summary> Списки учета, с их помощью снимается нагрузка с БД </summary>
+	internal class Accounting
     {
 
         private static readonly object _lock = new object();
