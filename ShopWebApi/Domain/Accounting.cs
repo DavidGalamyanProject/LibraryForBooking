@@ -29,7 +29,6 @@ namespace ShopWebApi.Domain
 				_reservRequestToQueues.Enqueue(item);
 			}
 		}
-		/// <summary> Простите я даун, не как сделать лучше! </summary>
 		public static ImmutableList<ReservRequestToQueue> GetAllReservs()
 		{
 			lock(_lock)
