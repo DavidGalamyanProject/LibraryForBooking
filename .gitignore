@@ -133,3 +133,4 @@ $RECYCLE.BIN/
 _NCrunch*
 .vs/LibraryForBookingGoods/DesignTimeBuild/.dtbcache.v2
 *.v2
+applicationhost.config
